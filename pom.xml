@@ -51,11 +51,17 @@
             <name>Public online Restlet repository</name>
             <url>http://maven.restlet.org</url>
         </repository>
+        <repository>
+            <id>maven-gae-plugin</id>
+            <name>Google App Engine Maven Plugin</name>
+            <url>http://maven-gae-plugin.googlecode.com/svn/repository</url>
+        </repository>
     </repositories>
 
 
     <properties>
         <gwt.version>2.0.0</gwt.version>
+        <gae.version>1.3.0</gae.version>
         <restlet.version>2.0-M6</restlet.version>
         <junit.version>4.7</junit.version>
         <easymock.version>2.4</easymock.version>
@@ -64,11 +70,14 @@
 
 
     <dependencies>
+        <!-- name.pehl -->
         <dependency>
             <groupId>name.pehl.gwt</groupId>
             <artifactId>piriti</artifactId>
             <version>0.2</version>
         </dependency>
+
+        <!-- GWT -->
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-user</artifactId>
@@ -81,6 +90,37 @@
             <version>${gwt.version}</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- GAE -->
+        <dependency>
+            <groupId>com.google.appengine</groupId>
+            <artifactId>appengine-api-1.0-sdk</artifactId>
+            <version>${gae.version}</version>
+        </dependency>
+
+        <!-- Other Google stuff -->
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <version>2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>aopalliance</groupId>
+            <artifactId>aopalliance</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <!-- Restlet -->
+        <dependency>
+            <groupId>org.restlet.gae</groupId>
+            <artifactId>org.restlet</artifactId>
+            <version>${restlet.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.restlet.gae</groupId>
+            <artifactId>org.restlet.ext.servlet</artifactId>
+            <version>${restlet.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.restlet.gwt</groupId>
             <artifactId>org.restlet</artifactId>
@@ -91,6 +131,15 @@
             <artifactId>org.restlet.ext.xml</artifactId>
             <version>${restlet.version}</version>
         </dependency>
+
+        <!-- Velocity -->
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.6.3</version>
+        </dependency>
+
+        <!-- Test -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -202,8 +251,8 @@ entryPointModules=]]>
             </plugin>
         </plugins>
     </build>
-    
-    
+
+
     <reporting>
         <outputDirectory>${basedir}/site</outputDirectory>
         <plugins>
