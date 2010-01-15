@@ -1,5 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <!--
+        $LastChangedBy: harald.pehl 
+        $LastChangedRevision: 65 $
+    -->
 
 
     <modelVersion>4.0.0</modelVersion>
@@ -8,17 +12,37 @@
     <name>Taoki</name>
     <description>Small layer on top of the GWT Restlet framework</description>
     <version>0.1</version>
+    <url>http://code.google.com/p/taoki/</url>
     <organization>
         <name>Harald Pehl</name>
         <url>http://harald.pehl.name</url>
     </organization>
+    <licenses>
+        <license>
+            <name>Apache 2</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
     <developers>
         <developer>
             <id>harald.pehl</id>
             <name>Harald Pehl</name>
             <email>harald.pehl@googlemail.com</email>
+            <roles>
+                <role>architect</role>
+                <role>developer</role>
+            </roles>
+            <timezone>+1</timezone>
         </developer>
     </developers>
+    <scm>
+        <connection>scm:svn:http://taoki.googlecode.com/svn/trunk</connection>
+        <developerConnection>scm:svn:https://taoki.googlecode.com/svn/trunk</developerConnection>
+        <tag>HEAD</tag>
+        <url>http://taoki.googlecode.com/svn/trunk</url>
+    </scm>
 
 
     <repositories>
@@ -43,7 +67,7 @@
         <dependency>
             <groupId>name.pehl.gwt</groupId>
             <artifactId>piriti</artifactId>
-            <version>0.1</version>
+            <version>0.2</version>
         </dependency>
         <dependency>
             <groupId>com.google.gwt</groupId>
@@ -178,4 +202,58 @@ entryPointModules=]]>
             </plugin>
         </plugins>
     </build>
+    
+    
+    <reporting>
+        <outputDirectory>${basedir}/site</outputDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>dependencies</report>
+                            <report>index</report>
+                            <report>license</report>
+                            <report>project-team</report>
+                            <report>scm</report>
+                            <report>summary</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <doctitle>${project.name} API ${project.version}</doctitle>
+                    <windowtitle>${project.name} API ${project.version}</windowtitle>
+                    <stylesheet>maven</stylesheet>
+                    <links>
+                        <link>http://google-web-toolkit.googlecode.com/svn/javadoc/2.0/</link>
+                    </links>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <!--
+                    the Maven Surefire Report plugin has a bug where it re-runs the tests, this is needed to avoid that
+                    - http://jira.codehaus.org/browse/SUREFIRE-257
+                -->
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>report-only</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>
