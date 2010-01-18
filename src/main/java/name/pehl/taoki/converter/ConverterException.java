@@ -1,8 +1,8 @@
-package name.pehl.taoki.xml;
+package name.pehl.taoki.converter;
 
 /**
- * @author $Author:$
- * @version $Revision:$
+ * @author $Author$
+ * @version $Revision$
  */
 public class ConverterException extends RuntimeException
 {

@@ -4,6 +4,8 @@ import java.io.StringWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import name.pehl.taoki.converter.ConverterException;
+
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.exception.MethodInvocationException;
@@ -14,8 +16,8 @@ import com.google.inject.Inject;
 import com.google.inject.internal.Nullable;
 
 /**
- * @author $Author:$
- * @version $Revision:$
+ * @author $Author$
+ * @version $Revision$
  */
 public class VelocityConverter implements TemplateConverter
 {
