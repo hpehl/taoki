@@ -1,4 +1,4 @@
-package name.pehl.taoki.xml;
+package name.pehl.taoki.converter;
 
 import org.apache.velocity.app.VelocityEngine;
 
@@ -7,8 +7,8 @@ import com.google.inject.Provides;
 import com.google.inject.Singleton;
 
 /**
- * @author $Author:$
- * @version $Revision:$
+ * @author $Author$
+ * @version $Revision$
  */
 public class XmlModule extends AbstractModule
 {
@@ -16,7 +16,6 @@ public class XmlModule extends AbstractModule
     protected void configure()
     {
         bind(VelocityProperties.class);
-        bind(TemplateConverter.class).to(VelocityConverter.class);
     }
 
 

@@ -1,4 +1,4 @@
-package name.pehl.taoki.xml;
+package name.pehl.taoki.converter;
 
 import java.util.Properties;
 
@@ -7,8 +7,8 @@ import org.apache.velocity.runtime.log.JdkLogChute;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 
 /**
- * @author $Author:$
- * @version $Revision:$
+ * @author $Author$
+ * @version $Revision$
  */
 public class VelocityProperties extends Properties
 {
