@@ -1,4 +1,4 @@
-package name.pehl.taoki.rest;
+package name.pehl.gwt.taoki.rest;
 
 import java.util.ArrayList;
 import java.util.HashMap;

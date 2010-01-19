@@ -1,8 +1,7 @@
-package name.pehl.taoki.rest;
+package name.pehl.gwt.taoki.rest;
 
 import static org.junit.Assert.*;
 
-import name.pehl.taoki.rest.UrlBuilder;
 
 import org.junit.Test;
 

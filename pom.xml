@@ -17,8 +17,8 @@
         <name>Harald Pehl</name>
         <url>http://harald.pehl.name</url>
     </organization>
-    
-    
+
+
     <licenses>
         <license>
             <name>Apache 2</name>
@@ -27,8 +27,8 @@
             <comments>A business-friendly OSS license</comments>
         </license>
     </licenses>
-    
-    
+
+
     <developers>
         <developer>
             <id>harald.pehl</id>
@@ -41,8 +41,8 @@
             <timezone>+1</timezone>
         </developer>
     </developers>
-    
-    
+
+
     <scm>
         <connection>scm:svn:http://taoki.googlecode.com/svn/trunk</connection>
         <developerConnection>scm:svn:https://taoki.googlecode.com/svn/trunk</developerConnection>
@@ -63,8 +63,8 @@
             <url>svn:https://taoki.googlecode.com/svn/site</url>
         </site>
     </distributionManagement>
-    
-    
+
+
     <repositories>
         <repository>
             <id>piriti-repo</id>
@@ -183,9 +183,6 @@
         <resources>
             <resource>
                 <directory>src/main/java</directory>
-                <includes>
-                    <include>**/UrlBuilder.*</include>
-                </includes>
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
@@ -213,30 +210,23 @@
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
+                    <includes>
+                        <include>${gwt.include}</include>
+                    </includes>
                     <excludes>
-                        <exclude>**/*GwtTest.java</exclude>
+                        <exclude>${gwt.include}</exclude>
                     </excludes>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>GWT</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                        <configuration>
-                            <classifier>gwt</classifier>
-                            <includes>
-                                <include>**/UrlBuilder.*</include>
-                                <include>name/pehl/taoki/Taoki.gwt.xml</include>
-                            </includes>
-                        </configuration>
-                    </execution>
-                </executions>
+                <configuration>
+                    <excludes>
+                        <exclude>name/pehl/gwt/**</exclude>
+                        <exclude>**/*.java</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -354,4 +344,26 @@ entryPointModules=]]>
             </plugin>
         </plugins>
     </reporting>
+
+
+    <profiles>
+        <profile>
+            <id>gwt</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jar-plugin</artifactId>
+                        <configuration>
+                            <classifier>gwt</classifier>
+                            <includes>
+                                <include>name/pehl/gwt/**</include>
+                            </includes>
+                            <excludes/>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
