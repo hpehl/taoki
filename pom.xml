@@ -151,6 +151,11 @@
             <artifactId>org.restlet</artifactId>
             <version>${restlet.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.restlet.gae</groupId>
+            <artifactId>org.restlet.ext.servlet</artifactId>
+            <version>${restlet.version}</version>
+        </dependency>
 
         <!-- Test -->
         <dependency>
@@ -178,6 +183,9 @@
         <resources>
             <resource>
                 <directory>src/main/java</directory>
+                <includes>
+                    <include>**/UrlBuilder.*</include>
+                </includes>
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
@@ -209,6 +217,26 @@
                         <exclude>**/*GwtTest.java</exclude>
                     </excludes>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>GWT</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>gwt</classifier>
+                            <includes>
+                                <include>**/UrlBuilder.*</include>
+                                <include>name/pehl/taoki/Taoki.gwt.xml</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
