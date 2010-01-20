@@ -180,16 +180,6 @@
 
 
     <build>
-        <resources>
-            <resource>
-                <directory>src/main/java</directory>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
-        </resources>
-
-
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -205,27 +195,6 @@
                     <source>1.6</source>
                     <target>1.6</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <includes>
-                        <include>${gwt.include}</include>
-                    </includes>
-                    <excludes>
-                        <exclude>${gwt.include}</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>name/pehl/gwt/**</exclude>
-                        <exclude>**/*.java</exclude>
-                    </excludes>
                 </configuration>
             </plugin>
             <plugin>
@@ -344,26 +313,4 @@ entryPointModules=]]>
             </plugin>
         </plugins>
     </reporting>
-
-
-    <profiles>
-        <profile>
-            <id>gwt</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-jar-plugin</artifactId>
-                        <configuration>
-                            <classifier>gwt</classifier>
-                            <includes>
-                                <include>name/pehl/gwt/**</include>
-                            </includes>
-                            <excludes/>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>
