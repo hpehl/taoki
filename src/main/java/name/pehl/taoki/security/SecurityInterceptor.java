@@ -3,6 +3,7 @@ package name.pehl.taoki.security;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.restlet.data.Cookie;
+import org.restlet.resource.Get;
 import org.restlet.resource.ServerResource;
 import org.restlet.util.Series;
 
@@ -11,8 +12,8 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
 /**
- * @author $Author:$
- * @version $Revision:$
+ * @author $Author$
+ * @version $Revision$
  */
 public class SecurityInterceptor implements MethodInterceptor
 {
@@ -43,6 +44,8 @@ public class SecurityInterceptor implements MethodInterceptor
         {
             throw new SecurityException("Security token invalid");
         }
+        
+        Get getAnnotation = invocation.getMethod().getAnnotation(Get.class);
 
         return invocation.proceed();
     }
