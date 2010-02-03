@@ -16,8 +16,8 @@ import com.google.inject.Injector;
 import com.google.inject.Singleton;
 
 /**
- * @author $Author:$
- * @version $Revision:$
+ * @author $Author$
+ * @version $Revision$
  */
 @Singleton
 public abstract class RestletServlet extends HttpServlet
@@ -36,7 +36,7 @@ public abstract class RestletServlet extends HttpServlet
         application.setContext(context);
         application.setInboundRoot(createRouter(injector, context));
         adapter = new ServletAdapter(getServletContext());
-        adapter.setTarget(application);
+        adapter.setNext(application);
     }
 
 
