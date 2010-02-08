@@ -1,9 +1,11 @@
 package name.pehl.taoki.security;
 
+import static com.google.inject.matcher.Matchers.annotatedWith;
+import static com.google.inject.matcher.Matchers.subclassesOf;
+
 import org.restlet.resource.ServerResource;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.matcher.Matchers;
 
 /**
  * @author $Author$
@@ -15,6 +17,6 @@ public class SecurityModule extends AbstractModule
     protected void configure()
     {
         SecurityInterceptor interceptor = new SecurityInterceptor();
-        bindInterceptor(Matchers.subclassesOf(ServerResource.class), Matchers.annotatedWith(Secured.class), interceptor);
+        bindInterceptor(subclassesOf(ServerResource.class), annotatedWith(Secured.class), interceptor);
     }
 }

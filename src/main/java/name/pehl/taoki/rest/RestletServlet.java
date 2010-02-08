@@ -24,14 +24,13 @@ public abstract class RestletServlet extends HttpServlet
 {
     @Inject
     private Injector injector;
-    private Context context;
     private ServletAdapter adapter;
 
 
     @Override
     public void init() throws ServletException
     {
-        context = new Context();
+        Context context = new Context();
         Application application = new Application();
         application.setContext(context);
         application.setInboundRoot(createRouter(injector, context));
