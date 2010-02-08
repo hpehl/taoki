@@ -1,9 +1,13 @@
-package name.pehl.taoki.rest;
+package name.pehl.taoki.rest.paging;
 
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import name.pehl.taoki.rest.paging.PageInfo;
+import name.pehl.taoki.rest.paging.SortDir;
+import name.pehl.taoki.rest.paging.SortInfo;
 
 import org.junit.Test;
 

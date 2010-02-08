@@ -1,6 +1,9 @@
-package name.pehl.taoki.rest;
+package name.pehl.taoki.rest.paging;
 
 import static org.junit.Assert.*;
+
+import name.pehl.taoki.rest.paging.SortDir;
+import name.pehl.taoki.rest.paging.SortInfo;
 
 import org.junit.Test;
 

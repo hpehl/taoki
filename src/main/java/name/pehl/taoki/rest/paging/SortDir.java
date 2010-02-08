@@ -1,4 +1,4 @@
-package name.pehl.taoki.rest;
+package name.pehl.taoki.rest.paging;
 
 /**
  * @author $Author: lfstad-pehl $

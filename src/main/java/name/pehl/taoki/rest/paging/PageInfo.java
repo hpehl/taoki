@@ -1,4 +1,4 @@
-package name.pehl.taoki.rest;
+package name.pehl.taoki.rest.paging;
 
 import java.io.Serializable;
 import java.util.ArrayList;
