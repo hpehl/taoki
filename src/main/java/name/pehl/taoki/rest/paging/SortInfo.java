@@ -2,8 +2,6 @@ package name.pehl.taoki.rest.paging;
 
 import java.io.Serializable;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-
 /**
  * @author $Author: lfstad-bauerb $
  * @version $Date: 2009-01-14 13:56:25 +0100 (Mi, 14 Jan 2009) $ $Revision:
@@ -55,7 +53,8 @@ public class SortInfo implements Serializable
 
 
     /**
-     * Basiert auf {@code sortField} und {@code sortDir} 
+     * Basiert auf {@code sortField} und {@code sortDir}
+     * 
      * @return
      * @see java.lang.Object#hashCode()
      */
@@ -71,7 +70,8 @@ public class SortInfo implements Serializable
 
 
     /**
-     * Basiert auf {@code sortField} und {@code sortDir} 
+     * Basiert auf {@code sortField} und {@code sortDir}
+     * 
      * @param obj
      * @return
      * @see java.lang.Object#equals(java.lang.Object)
@@ -125,7 +125,7 @@ public class SortInfo implements Serializable
     @Override
     public String toString()
     {
-        return new ToStringBuilder(this).append(sortField).append(sortDir).toString();
+        return new StringBuilder().append(sortField).append("/").append(sortDir).toString();
     }
 
 

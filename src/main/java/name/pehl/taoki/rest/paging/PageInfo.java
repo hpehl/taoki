@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-
 /**
  * <p>
  * Klasse, die für das Blättern in großen Datenmengen verwendet wird. Der
@@ -66,14 +64,14 @@ public class PageInfo implements Serializable
         if (offset < MIN_OFFSET)
         {
             this.offset = MIN_OFFSET;
-            log.warning("Der Offset '" + offset + "' in der PageInfo ist kleiner als der minimale Offset '" + MIN_OFFSET
-                    + "'. Setze den Offset auf das Minimum.");
+            log.warning("Der Offset '" + offset + "' in der PageInfo ist kleiner als der minimale Offset '"
+                    + MIN_OFFSET + "'. Setze den Offset auf das Minimum.");
         }
         else if (offset > MAX_OFFSET)
         {
             this.offset = MAX_OFFSET;
-            log.warning("Der Offset '" + offset + "' in der PageInfo ist groesser als der maximale Offset '" + MAX_OFFSET
-                    + "'. Setze den Offset auf das Maximum.");
+            log.warning("Der Offset '" + offset + "' in der PageInfo ist groesser als der maximale Offset '"
+                    + MAX_OFFSET + "'. Setze den Offset auf das Maximum.");
         }
         else
         {
@@ -209,14 +207,17 @@ public class PageInfo implements Serializable
 
 
     /**
+     * Returns a string representation in the form
+     * <code>PageInfo[&lt;offset&gt;/&lt;limit&gt;/&lt;total&gt;/&lt;sortInfo&gt;]</code>
+     * 
      * @return
      * @see java.lang.Object#toString()
      */
     @Override
     public String toString()
     {
-        return new ToStringBuilder(this).append(offset).append(limit).append(total).append(sortInfo.getSortField())
-                .append(sortInfo.getSortDir().name().toLowerCase()).toString();
+        return new StringBuilder("PageInfo [").append(offset).append("/").append(limit).append("/").append(total)
+                .append("/").append(sortInfo).toString();
     }
 
 
