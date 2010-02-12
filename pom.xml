@@ -95,9 +95,9 @@
 
 
     <properties>
-        <gwt.version>2.0.0</gwt.version>
+        <gwt.version>2.0.1</gwt.version>
         <gae.version>1.3.0</gae.version>
-        <restlet.version>2.0-SNAPSHOT</restlet.version>
+        <restlet.version>2.0-M7</restlet.version>
         <junit.version>4.7</junit.version>
         <easymock.version>2.4</easymock.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
