@@ -7,6 +7,7 @@ import org.restlet.resource.ServerResource;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
+import com.google.inject.Inject;
 
 /**
  * @author $Author$
@@ -14,6 +15,16 @@ import com.google.appengine.api.users.UserServiceFactory;
  */
 public class SecurityInterceptor implements MethodInterceptor
 {
+    private SecurityCheck securityCheck;
+
+
+    @Inject
+    public void setSecurityCheck(SecurityCheck securityCheck)
+    {
+        this.securityCheck = securityCheck;
+    }
+
+
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable
     {
@@ -25,8 +36,7 @@ public class SecurityInterceptor implements MethodInterceptor
         }
 
         ServerResource resource = (ServerResource) invocation.getThis();
-        SecurityCheck securityCheck = new SecurityCheck(resource.getRequest());
-        securityCheck.check();
+        securityCheck.check(resource.getRequest(), resource.getResponse());
         return invocation.proceed();
     }
 }

@@ -23,8 +23,11 @@ public class SecureFinder extends GuiceFinder
     @Override
     public void handle(Request request, Response response)
     {
-        SecurityCheck securityCheck = new SecurityCheck(request);
-        securityCheck.check();
+        SecurityCheck securityCheck = injector.getInstance(SecurityCheck.class);
+        if (securityCheck != null)
+        {
+            securityCheck.check(request, response);
+        }
         super.handle(request, response);
     }
 }
