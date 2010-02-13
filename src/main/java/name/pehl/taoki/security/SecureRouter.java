@@ -13,9 +13,9 @@ import com.google.inject.Injector;
  * @author $LastChangedBy:$ 
  * @version $LastChangedRevision:$ 
  */
-public abstract class SecurityRouter extends GuiceRouter
+public abstract class SecureRouter extends GuiceRouter
 {
-    public SecurityRouter(Injector injector, Context context)
+    public SecureRouter(Injector injector, Context context)
     {
         super(injector, context);
     }
@@ -25,6 +25,6 @@ public abstract class SecurityRouter extends GuiceRouter
     @Override
     public Finder createFinder(Class<?> targetClass)
     {
-        return new SecurityFinder(injector, getContext(), targetClass);
+        return new SecureFinder(injector, getContext(), targetClass);
     }
 }

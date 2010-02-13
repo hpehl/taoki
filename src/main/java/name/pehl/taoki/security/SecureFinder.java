@@ -12,9 +12,9 @@ import com.google.inject.Injector;
  * @author $LastChangedBy:$
  * @version $LastChangedRevision:$
  */
-public class SecurityFinder extends GuiceFinder
+public class SecureFinder extends GuiceFinder
 {
-    public SecurityFinder(Injector injector, Context context, Class<?> targetClass)
+    public SecureFinder(Injector injector, Context context, Class<?> targetClass)
     {
         super(injector, context, targetClass);
     }
