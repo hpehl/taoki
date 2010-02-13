@@ -9,12 +9,12 @@ import org.restlet.resource.ServerResource;
 import com.google.inject.Injector;
 
 /**
- * @author $Author:$
- * @version $Revision:$
+ * @author $Author$
+ * @version $Revision$
  */
 public class GuiceFinder extends Finder
 {
-    private final Injector injector;
+    protected final Injector injector;
 
 
     public GuiceFinder(Injector injector, Context context, Class<?> targetClass)

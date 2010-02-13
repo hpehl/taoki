@@ -7,12 +7,12 @@ import org.restlet.routing.Router;
 import com.google.inject.Injector;
 
 /**
- * @author $Author:$
- * @version $Revision:$
+ * @author $Author$
+ * @version $Revision$
  */
 public abstract class GuiceRouter extends Router
 {
-    private final Injector injector;
+    protected final Injector injector;
 
 
     public GuiceRouter(Injector injector, Context context)

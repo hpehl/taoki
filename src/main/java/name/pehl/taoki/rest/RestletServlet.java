@@ -23,8 +23,8 @@ import com.google.inject.Singleton;
 public abstract class RestletServlet extends HttpServlet
 {
     @Inject
-    private Injector injector;
-    private ServletAdapter adapter;
+    protected Injector injector;
+    protected ServletAdapter adapter;
 
 
     @Override
