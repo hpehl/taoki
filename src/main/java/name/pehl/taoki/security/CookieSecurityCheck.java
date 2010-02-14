@@ -9,7 +9,6 @@ import org.restlet.util.Series;
  * @author $LastChangedBy:$
  * @version $LastChangedRevision:$
  */
-
 public class CookieSecurityCheck implements SecurityCheck
 {
     public static final String TOKEN_ATTRIBUTE = "token";

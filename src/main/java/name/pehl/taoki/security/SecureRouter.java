@@ -7,11 +7,9 @@ import org.restlet.resource.Finder;
 
 import com.google.inject.Injector;
 
-
-
 /**
- * @author $LastChangedBy:$ 
- * @version $LastChangedRevision:$ 
+ * @author $LastChangedBy:$
+ * @version $LastChangedRevision:$
  */
 public abstract class SecureRouter extends GuiceRouter
 {
@@ -20,8 +18,7 @@ public abstract class SecureRouter extends GuiceRouter
         super(injector, context);
     }
 
-    
-    
+
     @Override
     public Finder createFinder(Class<?> targetClass)
     {

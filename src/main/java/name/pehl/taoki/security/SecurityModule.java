@@ -16,7 +16,7 @@ public class SecurityModule extends AbstractModule
     @Override
     protected void configure()
     {
-        bind(CookieSecurityCheck.class).to(CookieSecurityCheck.class);
+        bind(SecurityCheck.class).to(CookieSecurityCheck.class);
         SecurityInterceptor interceptor = new SecurityInterceptor();
         requestInjection(interceptor);
         bindInterceptor(subclassesOf(ServerResource.class), annotatedWith(Secured.class), interceptor);
