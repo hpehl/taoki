@@ -65,7 +65,7 @@ import org.restlet.resource.ServerResource;
  * @version $Date: 2009-01-21 11:32:14 +0100 (Mi, 21 Jan 2009) $ $Revision:
  *          61416 $
  */
-public abstract class PagingResource extends ServerResource
+public abstract class PagingUrlResource extends ServerResource implements HasPageInfo
 {
     public static final String OFFSET_ATTRIBUTE = "offset";
     public static final String LIMIT_ATTRIBUTE = "limit";
@@ -86,7 +86,8 @@ public abstract class PagingResource extends ServerResource
      *         und <code>limit</code> keine gültigen Zahlen angegeben wurden,
      *         oder die Anzahl der Attribute nicht stimmt.
      */
-    protected PageInfo getPageInfo(Request request)
+    @Override
+    public PageInfo getPageInfo(Request request)
     {
         Map<String, Object> attributes = request.getAttributes();
         String offset = (String) attributes.get(OFFSET_ATTRIBUTE);

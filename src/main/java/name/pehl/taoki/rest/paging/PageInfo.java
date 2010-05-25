@@ -6,17 +6,13 @@ import java.util.List;
 import java.util.logging.Logger;
 
 /**
- * <p>
- * Klasse, die für das Blättern in großen Datenmengen verwendet wird. Der
- * Konstruktor überprüft die übergegebenen Argumente auf Gültigkeit:
- * <ol>
- * <li><code>offset &gt; MIN_OFFSET && offset &lt; MAX_OFFSET</code></li>
- * <li><code>limit &gt; MIN_LIMIT && limit &lt; MAX_LIMIT</code></li>
- * </ol>
- * Falls die Parameter <code>offset</code> und <code>limit</code> außerhalb des
- * gültigen Wertebereich liegen, werden Sie mit den Minimal- bzw. Maximalwert
- * initialisiert.
- * </p>
+ * Value object for paging over large data. The class holds the following
+ * information:
+ * <ul>
+ * <li>offset
+ * <li>limit
+ * <li>sortInfo
+ * </ul>
  * 
  * @author $Author: lfstad-pehl $
  * @version $Date: 2009-01-28 09:37:21 +0100 (Mi, 28 Jan 2009) $ $Revision:
@@ -38,40 +34,26 @@ public class PageInfo implements Serializable
     private int total;
 
 
-    /**
-     * Construct a new instance of this class. Die Parameter
-     * 
-     * @param limit
-     * @param offset
-     * @param sortInfo
-     */
     public PageInfo(int offset, int limit)
     {
         this(offset, limit, new SortInfo());
     }
 
 
-    /**
-     * Construct a new instance of this class
-     * 
-     * @param limit
-     * @param offset
-     * @param sortInfo
-     */
     public PageInfo(int offset, int limit, SortInfo sortInfo)
     {
         super();
         if (offset < MIN_OFFSET)
         {
             this.offset = MIN_OFFSET;
-            log.warning("Der Offset '" + offset + "' in der PageInfo ist kleiner als der minimale Offset '"
-                    + MIN_OFFSET + "'. Setze den Offset auf das Minimum.");
+            log.warning("Offset '" + offset + "' is less than the allowed minimum '" + MIN_OFFSET
+                    + "'. Offset is set to the minimum.");
         }
         else if (offset > MAX_OFFSET)
         {
             this.offset = MAX_OFFSET;
-            log.warning("Der Offset '" + offset + "' in der PageInfo ist groesser als der maximale Offset '"
-                    + MAX_OFFSET + "'. Setze den Offset auf das Maximum.");
+            log.warning("Offset '" + offset + "' is greater than the allowed maximum '" + MAX_OFFSET
+                    + "'. Set offset to the maximum.");
         }
         else
         {
@@ -80,14 +62,14 @@ public class PageInfo implements Serializable
         if (limit < MIN_LIMIT)
         {
             this.limit = MIN_LIMIT;
-            log.warning("Das Limit '" + limit + "' in der PageInfo ist kleiner als der minimale Limit '" + MIN_LIMIT
-                    + "'. Setze das Limit auf das Minimum.");
+            log.warning("Limit '" + limit + "' is less than the allowed minimum '" + MIN_LIMIT
+                    + "'. Set limit to the minimum.");
         }
         else if (limit > MAX_LIMIT)
         {
             this.limit = MAX_LIMIT;
-            log.warning("Das Limit '" + limit + "' in der PageInfo ist groesser als das maximale Limit '" + MAX_LIMIT
-                    + "'. Setze das Limit auf das Maximum.");
+            log.warning("Limit '" + limit + "' is greater than the allowed maximum '" + MAX_LIMIT
+                    + "'. Set limit to the maximum.");
         }
         else
         {
@@ -99,8 +81,8 @@ public class PageInfo implements Serializable
 
 
     /**
-     * Liefert eine Sublist der angegebenen Liste, die den Paging Werten dieser
-     * Instanz entsprechen.
+     * Returns a sublist of the specified list according to the offset and limit
+     * of this PageInfo. The total is set to the size of the specified list.
      * 
      * @param <E>
      * @param list
@@ -139,7 +121,7 @@ public class PageInfo implements Serializable
 
 
     /**
-     * Basiert auf {@code offset}, {@code limit} und {@code sortInfo}
+     * Based on {@code offset}, {@code limit} and {@code sortInfo}
      * 
      * @return
      * @see java.lang.Object#hashCode()
@@ -157,7 +139,7 @@ public class PageInfo implements Serializable
 
 
     /**
-     * Basiert auf {@code offset}, {@code limit} und {@code sortInfo}
+     * Based on {@code offset}, {@code limit} and {@code sortInfo}
      * 
      * @param obj
      * @return
@@ -195,10 +177,6 @@ public class PageInfo implements Serializable
             }
         }
         else if (!sortInfo.equals(other.sortInfo))
-        {
-            return false;
-        }
-        if (total != other.total)
         {
             return false;
         }
@@ -257,8 +235,18 @@ public class PageInfo implements Serializable
     }
 
 
+    /**
+     * Negative values are ignored.
+     * 
+     * @param total
+     */
     public void setTotal(int total)
     {
+        if (total < 0)
+        {
+            log.warning("Total must not be negative!");
+            return;
+        }
         this.total = total;
     }
 }
