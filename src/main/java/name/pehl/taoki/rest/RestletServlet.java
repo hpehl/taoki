@@ -16,6 +16,21 @@ import com.google.inject.Injector;
 import com.google.inject.Singleton;
 
 /**
+ * Abstract base class for a servlet which acts as a dispatcher for all
+ * resources. Concrete subclasses have to override the method
+ * {@link #createRouter(Injector, Context)} and provide a concrete
+ * implementation of {@link GuiceRouter}:
+ * 
+ * <pre>
+ * public class BookstoreRestletServlet extends RestletServlet
+ * {
+ *     protected GuiceRouter createRouter(final Injector injector, final Context context)
+ *     {
+ *         return new BookstoreGuiceRouter(injector, context);
+ *     }
+ * }
+ * </pre>
+ * 
  * @author $Author$
  * @version $Revision$
  */
@@ -47,5 +62,5 @@ public abstract class RestletServlet extends HttpServlet
     }
 
 
-    protected abstract GuiceRouter createRouter(Injector injector, Context context);
+    protected abstract GuiceRouter createRouter(final Injector injector, final Context context);
 }

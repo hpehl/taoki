@@ -9,6 +9,9 @@ import org.restlet.resource.ServerResource;
 import com.google.inject.Injector;
 
 /**
+ * A finder which uses the specified {@link Injector} to create resources. The
+ * resources are created using <code>injector.getInstance(targetClass)</code>.
+ * 
  * @author $Author$
  * @version $Revision$
  */
