@@ -8,7 +8,7 @@ import name.pehl.taoki.rest.paging.SortDir;
 import name.pehl.taoki.rest.paging.SortInfo;
 
 /**
- * {@link PageInfoParser} expecting the paging information in the following
+ * {@link PageInfoParser} expecting the paging info as string with the following
  * format:
  * 
  * <pre>
@@ -16,16 +16,25 @@ import name.pehl.taoki.rest.paging.SortInfo;
  * </pre>
  * 
  * This parser works hand in hand with the
+ * {@link name.pehl.taoki.rest.paging.PagingHeaderResource}.
  * 
+ * @see name.pehl.taoki.rest.paging.PagingHeaderResource
  * @author $Author$
  * @version $Date$ $Revision:
  *          85318 $
  */
-public class HeaderPageInfoParser implements PageInfoParser
+public class HeaderPageInfoParser extends AbstractPageInfoParser
 {
     private static final String REGEXP = "^items=([0-9]+)-([0-9]+)(/([\\w]+)(/(asc|desc|none))?)?";
 
 
+    /**
+     * @param input
+     *            a string containing the page info data
+     * @return
+     * @throws PageInfoParseException
+     * @see name.pehl.taoki.rest.paging.parser.PageInfoParser#parse(java.lang.Object)
+     */
     @Override
     public PageInfo parse(Object input) throws PageInfoParseException
     {
@@ -33,11 +42,7 @@ public class HeaderPageInfoParser implements PageInfoParser
         {
             return null;
         }
-        if (!(input instanceof String))
-        {
-            throw new PageInfoParseException("Input hat das falsche Format: Soll: " + String.class.getName()
-                    + ", ist: " + input.getClass().getName());
-        }
+        verifyInput(input, String.class);
 
         String header = (String) input;
         Pattern p = Pattern.compile(REGEXP);
@@ -60,51 +65,20 @@ public class HeaderPageInfoParser implements PageInfoParser
                 }
             }
 
-            // convert offset
-            int offsetValue = 0;
-            try
-            {
-                offsetValue = Integer.parseInt(offset);
-            }
-            catch (NumberFormatException e)
-            {
-                throw new PageInfoParseException("Paging information \"" + header + "\" contains the invalid offset \""
-                        + offset + "\"");
-            }
-
-            // Konvertiere Limit
-            int lastIndexValue = 0;
-            try
-            {
-                lastIndexValue = Integer.parseInt(lastIndex);
-            }
-            catch (NumberFormatException e)
-            {
-                throw new PageInfoParseException("Paging Information enthält ein ungültiges Limit: " + lastIndex);
-            }
-
-            // Konvertiere Sortierungs-Attribute
-            SortDir sortDirValue = SortDir.NONE;
-            if (sortDir != null)
-            {
-                try
-                {
-                    sortDirValue = SortDir.valueOf(sortDir.toUpperCase());
-                }
-                catch (IllegalArgumentException iae)
-                {
-                    throw new PageInfoParseException("Paging Information enthält eine ungültige Sortierungsrichtung: "
-                            + sortDir + ". Bitte eine gueltige Konstante (" + SortDir.values() + ") angeben.");
-                }
-            }
-
-            // PageInfo erstellen und zurückgeben
+            int offsetValue = convertInt(offset, "Paging info \"%s\" contains the invalid offset: \"%s\"", header,
+                    offset);
+            int lastIndexValue = convertInt(lastIndex, "Paging info \"%s\" contains the invalid limit: \"%s\"", header,
+                    lastIndex);
             int limit = lastIndexValue - offsetValue + 1;
+            SortDir sortDirValue = convertSortDir(sortDir);
+
             return new PageInfo(offsetValue, limit, new SortInfo(sortField, sortDirValue));
         }
         else
         {
-            throw new PageInfoParseException("Paging Information entspricht nicht dem regulären Ausdruck: " + REGEXP);
+            String error = String.format("Paging info has the wrong format. Expected: %s, given: \"%s\"", REGEXP,
+                    header);
+            throw new PageInfoParseException(error);
         }
     }
 }
