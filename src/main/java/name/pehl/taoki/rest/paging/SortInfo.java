@@ -15,10 +15,8 @@ public class SortInfo implements Serializable
 
 
     /**
-     * Construct a new instance of this class
-     * 
-     * @param sortDir
-     * @param sortField
+     * Construct a new instance with no sort field (<code>null</code>) and
+     * {@link SortDir#NONE} as sort direction.
      */
     public SortInfo()
     {
@@ -27,9 +25,9 @@ public class SortInfo implements Serializable
 
 
     /**
-     * Construct a new instance of this class
+     * Construct a new instance with the specified sort field and
+     * {@link SortDir#NONE} as sort direction.
      * 
-     * @param sortDir
      * @param sortField
      */
     public SortInfo(String sortField)
@@ -39,7 +37,7 @@ public class SortInfo implements Serializable
 
 
     /**
-     * Construct a new instance of this class
+     * Construct a new instance with the specified sort field and direction.
      * 
      * @param sortDir
      * @param sortField
@@ -53,7 +51,7 @@ public class SortInfo implements Serializable
 
 
     /**
-     * Basiert auf {@code sortField} und {@code sortDir}
+     * Based on {@code sortField} and {@code sortDir}
      * 
      * @return
      * @see java.lang.Object#hashCode()
@@ -70,7 +68,7 @@ public class SortInfo implements Serializable
 
 
     /**
-     * Basiert auf {@code sortField} und {@code sortDir}
+     * Based on {@code sortField} and {@code sortDir}
      * 
      * @param obj
      * @return
@@ -130,9 +128,9 @@ public class SortInfo implements Serializable
 
 
     /**
-     * @return <code>true</code> falls
-     *         <code>sortField != null && sortDir != SortDir.NONE</code>, sonst
-     *         <code>false</code>.
+     * @return <code>true</code> if
+     *         <code>sortField != null && sortDir != SortDir.NONE</code>,
+     *         <code>false</code> otherwise.
      */
     public boolean shouldSort()
     {

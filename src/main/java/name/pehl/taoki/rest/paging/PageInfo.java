@@ -11,7 +11,7 @@ import java.util.logging.Logger;
  * <ul>
  * <li>offset
  * <li>limit
- * <li>sortInfo
+ * <li>{@linkplain SortInfo sortInfo}
  * </ul>
  * 
  * @author $Author: lfstad-pehl $
@@ -34,12 +34,37 @@ public class PageInfo implements Serializable
     private int total;
 
 
+    /**
+     * Construct a new instance using the specified offset and limit.
+     * 
+     * @param offset
+     *            The offset. If &lt; {@value #MIN_OFFSET}, offset is set to
+     *            {@value #MIN_OFFSET}. If &gt; {@value #MAX_OFFSET}, offset is
+     *            set to {@value #MAX_OFFSET}.
+     * @param limit
+     *            The limit. If &lt; {@value #MIN_LIMIT}, offset is set to
+     *            {@value #MIN_LIMIT}. If &gt; {@value #MAX_LIMIT}, offset is
+     *            set to {@value #MAX_LIMIT}.
+     */
     public PageInfo(int offset, int limit)
     {
         this(offset, limit, new SortInfo());
     }
 
 
+    /**
+     * Construct a new instance using the specified offset, limit and sort info.
+     * 
+     * @param offset
+     *            The offset. If &lt; {@value #MIN_OFFSET}, offset is set to
+     *            {@value #MIN_OFFSET}. If &gt; {@value #MAX_OFFSET}, offset is
+     *            set to {@value #MAX_OFFSET}.
+     * @param limit
+     *            The limit. If &lt; {@value #MIN_LIMIT}, offset is set to
+     *            {@value #MIN_LIMIT}. If &gt; {@value #MAX_LIMIT}, offset is
+     *            set to {@value #MAX_LIMIT}.
+     * @param sortInfo
+     */
     public PageInfo(int offset, int limit, SortInfo sortInfo)
     {
         super();
