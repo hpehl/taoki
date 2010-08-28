@@ -13,19 +13,18 @@ import org.restlet.representation.WriterRepresentation;
 import org.restlet.resource.ResourceException;
 
 /**
- * Representation die für umfangreiche Daten verwendet werden sollte. Intern
- * werden die Daten in einer temporäre Datei gepuffert, deren Inhalt dann zum
- * Client übertragen wird. Per {@link #getWriter()} kann der {@link Writer} für
- * die temporäre Datei abgerufen werden.
+ * Representation for large amount of data. Internally the data is buffered in a
+ * temporary file. Using {@link #getWriter()} you can access the writer of this
+ * file.
  * <p>
- * Falls nicht anders angegeben arbeitet die Representation mit dem Mediatyp
- * {@link MediaType#TEXT_XML}.
+ * If not specified {@link MediaType#TEXT_XML} is used as the representation for
+ * this resource.
  * <p>
- * Nachdem die Daten zum Client übertragen wurden, wird die temporäre Datei
- * wieder gelöscht.
+ * After the data is transfered to the client the temporary file is deleted.
  * 
  * @author $Author$
- * @version $Date$ $Revision$
+ * @version $Date$ $Revision: 93
+ *          $
  */
 public class FatRepresentation extends WriterRepresentation
 {
@@ -34,8 +33,8 @@ public class FatRepresentation extends WriterRepresentation
 
 
     /**
-     * Erzeugt die Representation mit dem Mediatyp {@link MediaType#TEXT_XML}.
-     * Erzeugt die temporäre Datei und initialisiert den {@link Writer} darauf.
+     * Creates a new instance of this resource with {@link MediaType#TEXT_XML}.
+     * Creates a new temporary file and initializes the writer for it.
      */
     public FatRepresentation()
     {
@@ -44,8 +43,8 @@ public class FatRepresentation extends WriterRepresentation
 
 
     /**
-     * Erzeugt die Representation mit dem angegebenen Mediatyp. Erzeugt die
-     * temporäre Datei und initialisiert den {@link Writer} darauf.
+     * Creates a new instance of this resource with the specified media type.
+     * Creates a new temporary file and initializes the writer for it.
      * 
      * @param mediaType
      */
@@ -54,20 +53,19 @@ public class FatRepresentation extends WriterRepresentation
         super(mediaType);
         try
         {
-            // *E*soves *F*at *R*epresentation
-            this.file = File.createTempFile("efr_", null);
+            // *F*at *R*epresentation
+            this.file = File.createTempFile("fr_", null);
             this.writer = new FileWriter(file);
         }
         catch (IOException e)
         {
-            throw new ResourceException(Status.SERVER_ERROR_INTERNAL,
-                    "Kann temporäre Datei für FatRepresentation nicht erzeugen", e);
+            throw new ResourceException(Status.SERVER_ERROR_INTERNAL, "Cannot create temporary file", e);
         }
     }
 
 
     /**
-     * Liefert den {@link Writer} für die temporäre Datei.
+     * Writer to the temporary file.
      * 
      * @return
      */
@@ -78,9 +76,8 @@ public class FatRepresentation extends WriterRepresentation
 
 
     /**
-     * Schreibt die Daten der temporären Datei in den angegebenen Writer. Diese
-     * Methode wird vom Restlet Framework aufgerufen, wenn der Client die Daten
-     * anfordert.
+     * Writes the data to the temporary file. This method is called from the
+     * restlet framework.
      * 
      * @param writer
      * @throws IOException
@@ -99,7 +96,7 @@ public class FatRepresentation extends WriterRepresentation
 
 
     /**
-     * Löscht die temporäre Datei.
+     * Deletes the temporary file.
      * 
      * @see org.restlet.representation.WriterRepresentation#release()
      */
