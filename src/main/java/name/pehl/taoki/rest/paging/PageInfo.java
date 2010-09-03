@@ -176,16 +176,27 @@ public class PageInfo implements Serializable
     public String toString()
     {
         return new StringBuilder("PageInfo [").append(offset).append("/").append(limit).append("/").append(sortInfo)
-                .toString();
+                .append("]").toString();
     }
 
 
+    /**
+     * Creates a new {@link PageInfo} instance with the offset for the previous
+     * page.
+     * 
+     * @return the previous {@link PageInfo}
+     */
     public PageInfo previous()
     {
         return new PageInfo(getOffset() - limit, getLimit());
     }
 
 
+    /**
+     * Returns the next {@link PageInfo} instance.
+     * 
+     * @return
+     */
     public PageInfo next()
     {
         return new PageInfo(getOffset() + limit, getLimit());
