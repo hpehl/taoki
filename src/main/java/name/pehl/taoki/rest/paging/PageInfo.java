@@ -1,13 +1,11 @@
 package name.pehl.taoki.rest.paging;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Logger;
 
 /**
- * Value object for paging over large data. The class holds the following
- * information:
+ * Immutable value object for paging over large data. The class holds the
+ * following information:
  * <ul>
  * <li>offset
  * <li>limit
@@ -28,10 +26,9 @@ public class PageInfo implements Serializable
     private static final long serialVersionUID = 1L;
     private static Logger log = Logger.getLogger(PageInfo.class.getName());
 
-    private int offset;
-    private int limit;
-    private SortInfo sortInfo;
-    private int total;
+    private final int offset;
+    private final int limit;
+    private final SortInfo sortInfo;
 
 
     /**
@@ -101,47 +98,6 @@ public class PageInfo implements Serializable
             this.limit = limit;
         }
         this.sortInfo = sortInfo;
-        this.total = 0;
-    }
-
-
-    /**
-     * Returns a sublist of the specified list according to the offset and limit
-     * of this PageInfo. The total is set to the size of the specified list.
-     * 
-     * @param <E>
-     * @param list
-     * @return
-     */
-    public <E> List<E> sublist(List<E> list)
-    {
-        // Kein Paging nötig
-        if (list == null || list.isEmpty())
-        {
-            setTotal(0);
-            return list;
-        }
-        setTotal(list.size());
-        if (getOffset() == 0 && list.size() < getLimit())
-        {
-            return list;
-        }
-
-        int from = getOffset();
-        int to = from + getLimit();
-        List<E> paged = new ArrayList<E>();
-        List<E> collectionAsList = new ArrayList<E>(list);
-        int size = list.size();
-        if (from >= size)
-        {
-            from = size - 1;
-        }
-        if (to > size)
-        {
-            to = size;
-        }
-        paged.addAll(collectionAsList.subList(from, to));
-        return paged;
     }
 
 
@@ -211,7 +167,7 @@ public class PageInfo implements Serializable
 
     /**
      * Returns a string representation in the form
-     * <code>PageInfo[&lt;offset&gt;/&lt;limit&gt;/&lt;total&gt;/&lt;sortInfo&gt;]</code>
+     * <code>PageInfo[&lt;offset&gt;/&lt;limit&gt;/&lt;sortInfo&gt;]</code>
      * 
      * @return
      * @see java.lang.Object#toString()
@@ -219,8 +175,20 @@ public class PageInfo implements Serializable
     @Override
     public String toString()
     {
-        return new StringBuilder("PageInfo [").append(offset).append("/").append(limit).append("/").append(total)
-                .append("/").append(sortInfo).toString();
+        return new StringBuilder("PageInfo [").append(offset).append("/").append(limit).append("/").append(sortInfo)
+                .toString();
+    }
+
+
+    public PageInfo previous()
+    {
+        return new PageInfo(getOffset() - limit, getLimit());
+    }
+
+
+    public PageInfo next()
+    {
+        return new PageInfo(getOffset() + limit, getLimit());
     }
 
 
@@ -248,30 +216,5 @@ public class PageInfo implements Serializable
     public SortInfo getSortInfo()
     {
         return sortInfo;
-    }
-
-
-    /**
-     * @return the total.
-     */
-    public int getTotal()
-    {
-        return total;
-    }
-
-
-    /**
-     * Negative values are ignored.
-     * 
-     * @param total
-     */
-    public void setTotal(int total)
-    {
-        if (total < 0)
-        {
-            log.warning("Total must not be negative!");
-            return;
-        }
-        this.total = total;
     }
 }
