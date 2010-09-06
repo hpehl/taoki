@@ -51,7 +51,7 @@ public abstract class AbstractPageInfoParserTest
         assertNotNull(pageInfo);
         assertNotNull(pageInfo.getSortInfo());
         assertEquals(offset, pageInfo.getOffset());
-        assertEquals(limit, pageInfo.getLimit());
+        assertEquals(limit, pageInfo.getPageSize());
         assertEquals(sortField, pageInfo.getSortInfo().getSortField());
         assertEquals(sortDir, pageInfo.getSortInfo().getSortDir());
     }

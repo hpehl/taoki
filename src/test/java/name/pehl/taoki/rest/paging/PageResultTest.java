@@ -1,5 +1,6 @@
 package name.pehl.taoki.rest.paging;
 
+import static name.pehl.taoki.rest.paging.PageResult.*;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
@@ -9,75 +10,242 @@ import java.util.List;
 import org.junit.Test;
 
 /**
- * @author $Author:$
- * @version $Date:$ $Revision:$
+ * @author $Author$
+ * @version $Date$ $Revision: 117
+ *          $
  */
 public class PageResultTest
 {
+    // ---------------------- tests for PageResult(PageInfo, List<T>) instances
+
     @Test(expected = IllegalArgumentException.class)
-    public void testNullPageInfo()
+    public void allNullPageInfo()
     {
         new PageResult<Integer>(null, null);
     }
 
 
     @Test
-    public void testNullList()
+    public void allNullList()
     {
-        PageResult<Integer> pageResult = new PageResult<Integer>(new PageInfo(0, 1), null);
-        assertTrue(pageResult.isEmpty());
-        assertEquals(0, pageResult.total());
+        PageResult<Integer> underTest = new PageResult<Integer>(new PageInfo(0, 1), null);
+        assertPageResult(underTest, 0, 1, 0, false, 0, 0);
     }
 
 
     @Test
-    public void testEmptyList()
+    public void allEmptyList()
     {
-        PageResult<Integer> pageResult = new PageResult<Integer>(new PageInfo(0, 1), Collections.<Integer> emptyList());
-        assertTrue(pageResult.isEmpty());
-        assertEquals(0, pageResult.total());
+        PageResult<Integer> underTest = new PageResult<Integer>(new PageInfo(0, 1), Collections.<Integer> emptyList());
+        assertPageResult(underTest, 0, 1, 0, true, 0, 0);
     }
 
 
     @Test
-    public void testPageResult()
+    public void allData()
     {
-//        assertPageResult(0, 50, 5, 5, 0, 4);
-//        assertPageResult(0, 50, 50, 50, 0, 49);
-//        assertPageResult(50, 50, 125, 50, 50, 99);
-//        assertPageResult(100, 50, 125, 25, 100, 124);
-//        // offset > listSize
-//        assertPageResult(100, 50, 50, 1, 49, 49);
+        PageResult<Integer> underTest = null;
+
+        // limit(10) > total(5)
+        underTest = new PageResult<Integer>(new PageInfo(0, 10), createList(5));
+        assertPageResult(underTest, 5, 1, 5, true, 0, 4);
+
+        // limit(10) == total(10)
+        underTest = new PageResult<Integer>(new PageInfo(0, 10), createList(10));
+        assertPageResult(underTest, 10, 1, 10, true, 0, 9);
+
+        // limit(10) < total(50)
+        underTest = new PageResult<Integer>(new PageInfo(0, 10), createList(50));
+        assertPageResult(underTest, 10, 5, 50, true, 0, 9);
     }
 
 
-    private void assertPageResult(int offset, int limit, int listSize, int pageSize, int firstValue, int lastValue)
+    @Test
+    public void allNavigation()
     {
-        PageInfo pageInfo = new PageInfo(offset, limit);
-        List<Integer> list = ListFactory.createList(listSize);
-        PageResult<Integer> pageResult = new PageResult<Integer>(pageInfo, list);
+        PageResult<Integer> underTest = null;
 
-        assertEquals(pageSize, pageResult.size());
-        assertEquals(firstValue, (int) pageResult.get(0));
-        assertEquals(lastValue, (int) pageResult.get(list.size() - 1));
-        assertEquals(listSize, pageResult.total());
+        underTest = new PageResult<Integer>(new PageInfo(0, 10), createList(42)).first();
+        assertPageResult(underTest, 10, 5, 42, true, 0, 9);
+        assertFalse(underTest.hasPrevious());
+        assertTrue(underTest.hasNext());
+
+        underTest = new PageResult<Integer>(new PageInfo(0, 10), createList(42)).last();
+        assertPageResult(underTest, 2, 5, 42, true, 40, 41);
+        assertTrue(underTest.hasPrevious());
+        assertFalse(underTest.hasNext());
     }
 
-    private static final class ListFactory
+
+    // -------------------- test methods for PageResult(PageInfo, List<T>, int)
+
+    @Test
+    public void pageNullPageInfo()
     {
-        private ListFactory()
+        try
         {
+            new PageResult<Integer>(null, null, -1);
+            fail("IllegalArgumentException expected");
         }
+        catch (IllegalArgumentException e)
+        {
+            // expected
+        }
+        try
+        {
+            new PageResult<Integer>(null, null, 0);
+            fail("IllegalArgumentException expected");
+        }
+        catch (IllegalArgumentException e)
+        {
+            // expected
+        }
+        try
+        {
+            new PageResult<Integer>(null, null, 1);
+            fail("IllegalArgumentException expected");
+        }
+        catch (IllegalArgumentException e)
+        {
+            // expected
+        }
+        try
+        {
+            new PageResult<Integer>(null, null, MAX_TOTAL + 1);
+            fail("IllegalArgumentException expected");
+        }
+        catch (IllegalArgumentException e)
+        {
+            // expected
+        }
+    }
 
 
-        static List<Integer> createList(int size)
+    @Test
+    public void pageNullList()
+    {
+        PageResult<Integer> underTest = null;
+
+        underTest = new PageResult<Integer>(new PageInfo(0, 1), null, -1);
+        assertPageResult(underTest, 0, 1, 0, false, 0, 0);
+        underTest = new PageResult<Integer>(new PageInfo(0, 1), null, 0);
+        assertPageResult(underTest, 0, 1, 0, false, 0, 0);
+        underTest = new PageResult<Integer>(new PageInfo(0, 1), null, 1);
+        assertPageResult(underTest, 0, 1, 1, false, 0, 0);
+        underTest = new PageResult<Integer>(new PageInfo(0, 1), null, 10);
+        assertPageResult(underTest, 0, 1, 10, false, 0, 0);
+        underTest = new PageResult<Integer>(new PageInfo(0, 1), null, MAX_TOTAL);
+        assertPageResult(underTest, 0, 1, MAX_TOTAL, false, 0, 0);
+        underTest = new PageResult<Integer>(new PageInfo(0, 1), null, MAX_TOTAL + 1);
+        assertPageResult(underTest, 0, 1, MAX_TOTAL, false, 0, 0);
+    }
+
+
+    @Test
+    public void pageEmptyList()
+    {
+        PageResult<Integer> underTest = null;
+
+        underTest = new PageResult<Integer>(new PageInfo(0, 1), Collections.<Integer> emptyList(), -1);
+        assertPageResult(underTest, 0, 1, 0, false, 0, 0);
+        underTest = new PageResult<Integer>(new PageInfo(0, 1), Collections.<Integer> emptyList(), 0);
+        assertPageResult(underTest, 0, 1, 0, false, 0, 0);
+        underTest = new PageResult<Integer>(new PageInfo(0, 1), Collections.<Integer> emptyList(), 1);
+        assertPageResult(underTest, 0, 1, 1, false, 0, 0);
+        underTest = new PageResult<Integer>(new PageInfo(0, 1), Collections.<Integer> emptyList(), 10);
+        assertPageResult(underTest, 0, 1, 10, false, 0, 0);
+        underTest = new PageResult<Integer>(new PageInfo(0, 1), Collections.<Integer> emptyList(), MAX_TOTAL);
+        assertPageResult(underTest, 0, 1, MAX_TOTAL, false, 0, 0);
+        underTest = new PageResult<Integer>(new PageInfo(0, 1), Collections.<Integer> emptyList(), MAX_TOTAL + 1);
+        assertPageResult(underTest, 0, 1, MAX_TOTAL, false, 0, 0);
+    }
+
+
+    @Test
+    public void pageData()
+    {
+        PageResult<Integer> underTest = null;
+
+        // limit(10) > created list(5)
+        underTest = new PageResult<Integer>(new PageInfo(0, 10), createList(5), -1);
+        assertPageResult(underTest, 5, 1, 5, false, 0, 4);
+        underTest = new PageResult<Integer>(new PageInfo(0, 10), createList(5), 0);
+        assertPageResult(underTest, 5, 1, 5, false, 0, 4);
+        underTest = new PageResult<Integer>(new PageInfo(0, 10), createList(5), 4);
+        assertPageResult(underTest, 5, 1, 5, false, 0, 4);
+        underTest = new PageResult<Integer>(new PageInfo(0, 10), createList(5), 5);
+        assertPageResult(underTest, 5, 1, 5, false, 0, 4);
+        underTest = new PageResult<Integer>(new PageInfo(0, 10), createList(5), 6);
+        assertPageResult(underTest, 5, 1, 6, false, 0, 4);
+        underTest = new PageResult<Integer>(new PageInfo(0, 10), createList(5), MAX_TOTAL);
+        assertPageResult(underTest, 5, 1, MAX_TOTAL, false, 0, 4);
+        underTest = new PageResult<Integer>(new PageInfo(0, 10), createList(5), MAX_TOTAL + 1);
+        assertPageResult(underTest, 5, 1, MAX_TOTAL, false, 0, 4);
+
+        // limit(10) == created list(5)
+        underTest = new PageResult<Integer>(new PageInfo(0, 10), createList(10), -1);
+        assertPageResult(underTest, 10, 1, 10, false, 0, 9);
+        underTest = new PageResult<Integer>(new PageInfo(0, 10), createList(10), 0);
+        assertPageResult(underTest, 10, 1, 10, false, 0, 9);
+        underTest = new PageResult<Integer>(new PageInfo(0, 10), createList(10), 9);
+        assertPageResult(underTest, 10, 1, 10, false, 0, 9);
+        underTest = new PageResult<Integer>(new PageInfo(0, 10), createList(10), 10);
+        assertPageResult(underTest, 10, 1, 10, false, 0, 9);
+        underTest = new PageResult<Integer>(new PageInfo(0, 10), createList(10), 11);
+        assertPageResult(underTest, 10, 1, 11, false, 0, 9);
+        underTest = new PageResult<Integer>(new PageInfo(0, 10), createList(10), MAX_TOTAL);
+        assertPageResult(underTest, 10, 1, MAX_TOTAL, false, 0, 9);
+        underTest = new PageResult<Integer>(new PageInfo(0, 10), createList(10), MAX_TOTAL + 1);
+        assertPageResult(underTest, 10, 1, MAX_TOTAL, false, 0, 9);
+
+        // limit(10) < created list(50)
+        underTest = new PageResult<Integer>(new PageInfo(0, 10), createList(50), -1);
+        assertPageResult(underTest, 10, 1, 50, false, 0, 9);
+        underTest = new PageResult<Integer>(new PageInfo(0, 10), createList(50), 0);
+        assertPageResult(underTest, 10, 1, 50, false, 0, 9);
+        underTest = new PageResult<Integer>(new PageInfo(0, 10), createList(50), 24);
+        assertPageResult(underTest, 10, 1, 50, false, 0, 9);
+        underTest = new PageResult<Integer>(new PageInfo(0, 10), createList(50), 25);
+        assertPageResult(underTest, 10, 1, 50, false, 0, 9);
+        underTest = new PageResult<Integer>(new PageInfo(0, 10), createList(50), 26);
+        assertPageResult(underTest, 10, 1, 50, false, 0, 9);
+        underTest = new PageResult<Integer>(new PageInfo(0, 10), createList(50), MAX_TOTAL);
+        assertPageResult(underTest, 10, 1, MAX_TOTAL, false, 0, 9);
+        underTest = new PageResult<Integer>(new PageInfo(0, 10), createList(50), MAX_TOTAL + 1);
+        assertPageResult(underTest, 10, 1, MAX_TOTAL, false, 0, 9);
+    }
+
+
+    // --------------------------------------------------------- helper methods
+
+    private void assertPageResult(PageResult<Integer> underTest, int size, int pages, int total, boolean navigable,
+            int firstValue, int lastValue)
+    {
+        assertNotNull(underTest);
+        if (size == 0)
         {
-            List<Integer> list = new ArrayList<Integer>(size);
-            for (int i = 0; i < size; i++)
-            {
-                list.add(i);
-            }
-            return list;
+            assertTrue(underTest.isEmpty());
         }
+        else
+        {
+            assertFalse(underTest.isEmpty());
+            assertEquals(firstValue, (int) underTest.get(0));
+            assertEquals(lastValue, (int) underTest.get(size - 1));
+        }
+        assertEquals(size, underTest.size());
+        assertEquals(pages, underTest.pages());
+        assertEquals(total, underTest.total());
+        assertEquals(navigable, underTest.isNavigable());
+    }
+
+
+    private List<Integer> createList(int size)
+    {
+        List<Integer> list = new ArrayList<Integer>(size);
+        for (int i = 0; i < size; i++)
+        {
+            list.add(i);
+        }
+        return list;
     }
 }

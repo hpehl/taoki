@@ -1,14 +1,13 @@
 package name.pehl.taoki.rest.paging;
 
 import java.io.Serializable;
-import java.util.logging.Logger;
 
 /**
  * Immutable value object for paging over large data. The class holds the
  * following information:
  * <ul>
  * <li>offset
- * <li>limit
+ * <li>page size
  * <li>{@linkplain SortInfo sortInfo}
  * </ul>
  * 
@@ -18,93 +17,97 @@ import java.util.logging.Logger;
  */
 public class PageInfo implements Serializable
 {
+    // -------------------------------------------------------------- constants
+
     public static final int MIN_OFFSET = 0;
     public static final int MAX_OFFSET = 0xffffff / 2;
-    public static final int MIN_LIMIT = 1;
-    public static final int MAX_LIMIT = 0xffffff;
+    public static final int MIN_PAGE_SIZE = 1;
+    public static final int MAX_PAGE_SIZE = 0xffffff;
 
     private static final long serialVersionUID = 1L;
-    private static Logger log = Logger.getLogger(PageInfo.class.getName());
+
+    // -------------------------------------------------------- private members
 
     private final int offset;
-    private final int limit;
+    private final int pageSize;
     private final SortInfo sortInfo;
 
 
+    // ----------------------------------------------------------- constructors
+
     /**
-     * Construct a new instance using the specified offset and limit.
+     * Construct a new instance using the specified offset and page size.
      * 
      * @param offset
      *            The offset. If &lt; {@value #MIN_OFFSET}, offset is set to
      *            {@value #MIN_OFFSET}. If &gt; {@value #MAX_OFFSET}, offset is
      *            set to {@value #MAX_OFFSET}.
-     * @param limit
-     *            The limit. If &lt; {@value #MIN_LIMIT}, offset is set to
-     *            {@value #MIN_LIMIT}. If &gt; {@value #MAX_LIMIT}, offset is
-     *            set to {@value #MAX_LIMIT}.
+     * @param pageSize
+     *            The page size. If &lt; {@value #MIN_PAGE_SIZE}, page size is
+     *            set to {@value #MIN_PAGE_SIZE}. If &gt;
+     *            {@value #MAX_PAGE_SIZE}, page size is set to
+     *            {@value #MAX_PAGE_SIZE}.
      */
-    public PageInfo(int offset, int limit)
+    public PageInfo(int offset, int pageSize)
     {
-        this(offset, limit, new SortInfo());
+        this(offset, pageSize, new SortInfo());
     }
 
 
     /**
-     * Construct a new instance using the specified offset, limit and sort info.
+     * Construct a new instance using the specified offset, page size and sort
+     * info.
      * 
      * @param offset
      *            The offset. If &lt; {@value #MIN_OFFSET}, offset is set to
      *            {@value #MIN_OFFSET}. If &gt; {@value #MAX_OFFSET}, offset is
      *            set to {@value #MAX_OFFSET}.
-     * @param limit
-     *            The limit. If &lt; {@value #MIN_LIMIT}, offset is set to
-     *            {@value #MIN_LIMIT}. If &gt; {@value #MAX_LIMIT}, offset is
-     *            set to {@value #MAX_LIMIT}.
+     * @param pageSize
+     *            The page size. If &lt; {@value #MIN_PAGE_SIZE}, page size is
+     *            set to {@value #MIN_PAGE_SIZE}. If &gt;
+     *            {@value #MAX_PAGE_SIZE}, page size is set to
+     *            {@value #MAX_PAGE_SIZE}.
      * @param sortInfo
      */
-    public PageInfo(int offset, int limit, SortInfo sortInfo)
+    public PageInfo(int offset, int pageSize, SortInfo sortInfo)
     {
         super();
         if (offset < MIN_OFFSET)
         {
             this.offset = MIN_OFFSET;
-            log.warning("Offset '" + offset + "' is less than the allowed minimum '" + MIN_OFFSET
-                    + "'. Offset is set to the minimum.");
         }
         else if (offset > MAX_OFFSET)
         {
             this.offset = MAX_OFFSET;
-            log.warning("Offset '" + offset + "' is greater than the allowed maximum '" + MAX_OFFSET
-                    + "'. Set offset to the maximum.");
         }
         else
         {
             this.offset = offset;
         }
-        if (limit < MIN_LIMIT)
+        if (pageSize < MIN_PAGE_SIZE)
         {
-            this.limit = MIN_LIMIT;
-            log.warning("Limit '" + limit + "' is less than the allowed minimum '" + MIN_LIMIT
-                    + "'. Set limit to the minimum.");
+            this.pageSize = MIN_PAGE_SIZE;
         }
-        else if (limit > MAX_LIMIT)
+        else if (pageSize > MAX_PAGE_SIZE)
         {
-            this.limit = MAX_LIMIT;
-            log.warning("Limit '" + limit + "' is greater than the allowed maximum '" + MAX_LIMIT
-                    + "'. Set limit to the maximum.");
+            this.pageSize = MAX_PAGE_SIZE;
         }
         else
         {
-            this.limit = limit;
+            this.pageSize = pageSize;
         }
         this.sortInfo = sortInfo;
     }
 
 
+    // --------------------------------------------------------- object methods
+
     /**
-     * Based on {@code offset}, {@code limit} and {@code sortInfo}
+     * Based on {@link #getOffset()}, {@link #getPageSize()} and
+     * {@link #getSortInfo()}.
      * 
-     * @return
+     * @return the hash code base on {@link #getOffset()},
+     *         {@link #getPageSize()} and {@link #getSortInfo()}.
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -113,40 +116,43 @@ public class PageInfo implements Serializable
         final int prime = 31;
         int result = 1;
         result = prime * result + offset;
-        result = prime * result + limit;
+        result = prime * result + pageSize;
         result = prime * result + ((sortInfo == null) ? 0 : sortInfo.hashCode());
         return result;
     }
 
 
     /**
-     * Based on {@code offset}, {@code limit} and {@code sortInfo}
+     * Based on {@link #getOffset()}, {@link #getPageSize()} and
+     * {@link #getSortInfo()}.
      * 
-     * @param obj
-     * @return
+     * @param o
+     *            the other {@link PageInfo} instance
+     * @return <code>true</code> if this instance equals {@code o},
+     *         <code>false</code> otherwise.
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
-    public boolean equals(Object obj)
+    public boolean equals(Object o)
     {
-        if (this == obj)
+        if (this == o)
         {
             return true;
         }
-        if (obj == null)
+        if (o == null)
         {
             return false;
         }
-        if (getClass() != obj.getClass())
+        if (getClass() != o.getClass())
         {
             return false;
         }
-        PageInfo other = (PageInfo) obj;
+        PageInfo other = (PageInfo) o;
         if (offset != other.offset)
         {
             return false;
         }
-        if (limit != other.limit)
+        if (pageSize != other.pageSize)
         {
             return false;
         }
@@ -167,7 +173,7 @@ public class PageInfo implements Serializable
 
     /**
      * Returns a string representation in the form
-     * <code>PageInfo[&lt;offset&gt;/&lt;limit&gt;/&lt;sortInfo&gt;]</code>
+     * <code>PageInfo[{@link #getOffset()}/{@link #getPageSize()}/{@link #getSortInfo()}]</code>
      * 
      * @return
      * @see java.lang.Object#toString()
@@ -175,10 +181,12 @@ public class PageInfo implements Serializable
     @Override
     public String toString()
     {
-        return new StringBuilder("PageInfo [").append(offset).append("/").append(limit).append("/").append(sortInfo)
+        return new StringBuilder("PageInfo [").append(offset).append("/").append(pageSize).append("/").append(sortInfo)
                 .append("]").toString();
     }
 
+
+    // ------------------------------------------------------------- navigation
 
     /**
      * Creates a new {@link PageInfo} instance with the offset for the previous
@@ -188,7 +196,7 @@ public class PageInfo implements Serializable
      */
     public PageInfo previous()
     {
-        return new PageInfo(getOffset() - limit, getLimit());
+        return new PageInfo(getOffset() - pageSize, getPageSize());
     }
 
 
@@ -199,9 +207,11 @@ public class PageInfo implements Serializable
      */
     public PageInfo next()
     {
-        return new PageInfo(getOffset() + limit, getLimit());
+        return new PageInfo(getOffset() + pageSize, getPageSize());
     }
 
+
+    // ------------------------------------------------------------- properties
 
     /**
      * @return the offset.
@@ -213,11 +223,11 @@ public class PageInfo implements Serializable
 
 
     /**
-     * @return the limit.
+     * @return the page size.
      */
-    public int getLimit()
+    public int getPageSize()
     {
-        return limit;
+        return pageSize;
     }
 
 
