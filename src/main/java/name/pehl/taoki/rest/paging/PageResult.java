@@ -1,6 +1,7 @@
 package name.pehl.taoki.rest.paging;
 
-import static java.lang.Math.*;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -305,12 +306,14 @@ public class PageResult<T> implements Iterable<T>
 
     // ------------------------------------------------------------- navigation
 
-/**
-     * Returns the {@link PageResult} instance representing the first page
-     * if this instance is {@linkplain #isNavigable(), <code>null</code> otherwise.
+    /**
+     * Returns the {@link PageResult} instance representing the first page if
+     * this instance is {@linkplain #isNavigable() navigable}, <code>null</code>
+     * otherwise.
      * 
-     * @return the {@link PageResult} instance representing the first page 
-     * if this instance is {@linkplain #isNavigable(), <code>null</code> otherwise.
+     * @return the {@link PageResult} instance representing the first page if
+     *         this instance is {@linkplain #isNavigable() navigable},
+     *         <code>null</code> otherwise.
      */
     public PageResult<T> first()
     {
@@ -337,19 +340,18 @@ public class PageResult<T> implements Iterable<T>
             int previousOffset = pageInfo.getOffset() - pageInfo.getPageSize();
             return previousOffset >= 0;
         }
-        else
-        {
-            return false;
-        }
+        return false;
     }
 
 
-/**
-     * Returns the {@link PageResult} instance representing the previous page
-     * if this instance is {@linkplain #isNavigable(), <code>null</code> otherwise.
+    /**
+     * Returns the {@link PageResult} instance representing the previous page if
+     * this instance is {@linkplain #isNavigable() navigable}, <code>null</code>
+     * otherwise.
      * 
-     * @return the {@link PageResult} instance representing the previous page 
-     * if this instance is {@linkplain #isNavigable(), <code>null</code> otherwise.
+     * @return the {@link PageResult} instance representing the previous page if
+     *         this instance is {@linkplain #isNavigable() navigable},
+     *         <code>null</code> otherwise.
      */
     public PageResult<T> previous()
     {
@@ -362,14 +364,16 @@ public class PageResult<T> implements Iterable<T>
     }
 
 
-/**
-     * Returns the {@link PageResult} instance representing the page of the specified index
-     * if this instance is {@linkplain #isNavigable(), <code>null</code> otherwise.
+    /**
+     * Returns the {@link PageResult} instance representing the page at the
+     * specified index if this instance is {@linkplain #isNavigable() navigable}
+     * , <code>null</code> otherwise.
      * 
      * @param index
      *            the page index
-     * @return the {@link PageResult} instance representing the page of the specified index 
-     * if this instance is {@linkplain #isNavigable(), <code>null</code> otherwise.
+     * @return the {@link PageResult} instance representing the page at the
+     *         specified index if this instance is {@linkplain #isNavigable()
+     *         navigable}, <code>null</code> otherwise.
      * @throws IndexOutOfBoundsException
      *             if {@code index} &lt; 0 or &gt; {@link #pages()} - 1
      */
@@ -408,12 +412,14 @@ public class PageResult<T> implements Iterable<T>
     }
 
 
-/**
-     * Returns the {@link PageResult} instance representing the next page
-     * if this instance is {@linkplain #isNavigable(), <code>null</code> otherwise.
+    /**
+     * Returns the {@link PageResult} instance representing the next page if
+     * this instance is {@linkplain #isNavigable() navigable}, <code>null</code>
+     * otherwise.
      * 
-     * @return the {@link PageResult} instance representing the next page 
-     * if this instance is {@linkplain #isNavigable(), <code>null</code> otherwise.
+     * @return the {@link PageResult} instance representing the next page if
+     *         this instance is {@linkplain #isNavigable() navigable},
+     *         <code>null</code> otherwise.
      */
     public PageResult<T> next()
     {
@@ -426,12 +432,14 @@ public class PageResult<T> implements Iterable<T>
     }
 
 
-/**
-     * Returns the {@link PageResult} instance representing the last page
-     * if this instance is {@linkplain #isNavigable(), <code>null</code> otherwise.
+    /**
+     * Returns the {@link PageResult} instance representing the last page if
+     * this instance is {@linkplain #isNavigable() navigable}, <code>null</code>
+     * otherwise.
      * 
-     * @return the {@link PageResult} instance representing the last page 
-     * if this instance is {@linkplain #isNavigable(), <code>null</code> otherwise.
+     * @return the {@link PageResult} instance representing the last page if
+     *         this instance is {@linkplain #isNavigable() navigable},
+     *         <code>null</code> otherwise.
      */
     public PageResult<T> last()
     {
@@ -513,7 +521,7 @@ public class PageResult<T> implements Iterable<T>
     // -------------------------------------------------- page delegate methods
 
     /**
-     * Delegate for <code>page().iterator()</code>.
+     * Delegates to <code>{@link #page()}.iterator()</code>.
      * 
      * @return
      * @see List#iterator()
@@ -526,9 +534,9 @@ public class PageResult<T> implements Iterable<T>
 
 
     /**
-     * Delegate for <code>page().size()</code>.
+     * Delegates to <code>{@link #page()}.size()</code>.
      * 
-     * @return the number of elements in the current page
+     * @return
      * @see List#size()
      */
     public int size()
@@ -538,7 +546,7 @@ public class PageResult<T> implements Iterable<T>
 
 
     /**
-     * Delegate for <code>page().isEmpty()</code>.
+     * Delegates to <code>{@link #page()}.isEmpty()</code>.
      * 
      * @return
      * @see List#isEmpty()
@@ -550,7 +558,7 @@ public class PageResult<T> implements Iterable<T>
 
 
     /**
-     * Delegate for <code>page().contains()</code>.
+     * Delegates to <code>{@link #page()}.contains()</code>.
      * 
      * @param o
      * @return
@@ -563,7 +571,7 @@ public class PageResult<T> implements Iterable<T>
 
 
     /**
-     * Delegate for <code>page().toArray()</code>.
+     * Delegates to <code>{@link #page()}.toArray()</code>.
      * 
      * @return
      * @see List#toArray()
@@ -575,7 +583,7 @@ public class PageResult<T> implements Iterable<T>
 
 
     /**
-     * Delegate for <code>page().toArray(T[])</code>.
+     * Delegates to <code>{@link #page()}.toArray(T[])</code>.
      * 
      * @param a
      * @return
@@ -588,7 +596,7 @@ public class PageResult<T> implements Iterable<T>
 
 
     /**
-     * Delegate for <code>page().containsAll(Collection<?>)</code>.
+     * Delegates to <code>{@link #page()}.containsAll(Collection<?>)</code>.
      * 
      * @param c
      * @return
@@ -601,7 +609,7 @@ public class PageResult<T> implements Iterable<T>
 
 
     /**
-     * Delegate for <code>page().get(int)</code>.
+     * Delegates to <code>{@link #page()}.get(int)</code>.
      * 
      * @param index
      * @return
@@ -614,7 +622,7 @@ public class PageResult<T> implements Iterable<T>
 
 
     /**
-     * Delegate for <code>page().indexOf(Object)</code>.
+     * Delegates to <code>{@link #page()}.indexOf(Object)</code>.
      * 
      * @param o
      * @return
@@ -627,7 +635,7 @@ public class PageResult<T> implements Iterable<T>
 
 
     /**
-     * Delegate for <code>page().lastIndexOf(Object)</code>.
+     * Delegates to <code>{@link #page()}.lastIndexOf(Object)</code>.
      * 
      * @param o
      * @return
@@ -640,7 +648,7 @@ public class PageResult<T> implements Iterable<T>
 
 
     /**
-     * Delegate for <code>page().listIterator()</code>.
+     * Delegates to <code>{@link #page()}.listIterator()</code>.
      * 
      * @return
      * @see List#listIterator()
@@ -652,7 +660,7 @@ public class PageResult<T> implements Iterable<T>
 
 
     /**
-     * Delegate for <code>page().listIterator(int)</code>.
+     * Delegates to <code>{@link #page()}.listIterator(int)</code>.
      * 
      * @return
      * @see List#listIterator(int)
@@ -664,7 +672,7 @@ public class PageResult<T> implements Iterable<T>
 
 
     /**
-     * Delegate for <code>page().subList(int, int)</code>.
+     * Delegates to <code>{@link #page()}.subList(int, int)</code>.
      * 
      * @param fromIndex
      * @param toIndex
