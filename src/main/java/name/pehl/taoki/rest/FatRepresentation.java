@@ -47,6 +47,7 @@ public class FatRepresentation extends WriterRepresentation
      * Creates a new temporary file and initializes the writer for it.
      * 
      * @param mediaType
+     *            the media type
      */
     public FatRepresentation(MediaType mediaType)
     {
@@ -65,9 +66,9 @@ public class FatRepresentation extends WriterRepresentation
 
 
     /**
-     * Writer to the temporary file.
+     * Returns the writer to the temporary file.
      * 
-     * @return
+     * @return the writer to the temporary file.
      */
     public FileWriter getWriter()
     {
@@ -80,6 +81,7 @@ public class FatRepresentation extends WriterRepresentation
      * restlet framework.
      * 
      * @param writer
+     *            The characters writer.
      * @throws IOException
      * @see org.restlet.representation.Representation#write(java.io.Writer)
      */
