@@ -74,7 +74,7 @@ public class PageInfoTest
         assertEquals(10, underTest.getPageSize());
         assertDefaultSortInfo(underTest);
 
-        underTest = new PageInfo(10, 10).previous();
+        underTest = new PageInfo(0, 10).previous();
         assertEquals(0, underTest.getOffset());
         assertEquals(10, underTest.getPageSize());
         assertDefaultSortInfo(underTest);
