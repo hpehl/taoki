@@ -6,7 +6,7 @@ import org.restlet.Request;
 import org.restlet.data.Form;
 
 /**
- * An {@linkplain AbstractPagingResource paging resource} which uses the <a
+ * A {@linkplain AbstractPagingResource paging resource} which uses the <a
  * href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.35" >Range
  * Header</a> as input. The page info is expected in the following format:
  * 
@@ -15,11 +15,11 @@ import org.restlet.data.Form;
  * </pre>
  * <ul>
  * <li><code>offset</code><br/>
- * The offset for the paging
+ * The offset in the result.
  * <li><code>last-index</code><br/>
  * The last index of the result. The <code>last-index</code> is used to
- * calculate the limit of the {@link PageInfo} instance:
- * <code>limit = lastIndex - offsetValue + 1</code>
+ * calculate the size of one page:
+ * <code>pageSize = lastIndex - offsetValue + 1</code>
  * <li><code>sortField</code><br/>
  * The name of the field used for srting the result (optional)
  * <li><code>sortDir</code><br/>

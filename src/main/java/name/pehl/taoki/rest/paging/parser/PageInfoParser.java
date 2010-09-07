@@ -13,7 +13,7 @@ import name.pehl.taoki.rest.paging.PageInfo;
 public interface PageInfoParser
 {
     String OFFSET = "offset";
-    String LIMIT = "limit";
+    String PAGE_SIZE = "pageSize";
     String SORT_FIELD = "sortField";
     String SORT_DIR = "sortDir";
 

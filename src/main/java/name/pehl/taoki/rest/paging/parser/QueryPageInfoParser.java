@@ -42,14 +42,14 @@ public class QueryPageInfoParser extends AbstractPageInfoParser
 
         Form form = (Form) input;
         String offset = form.getFirstValue(OFFSET);
-        String limit = form.getFirstValue(LIMIT);
+        String pageSize = form.getFirstValue(PAGE_SIZE);
         String sortField = form.getFirstValue(SORT_FIELD);
         String sortDir = form.getFirstValue(SORT_DIR);
 
         int offsetValue = convertInt(offset, "Paging info contains the invalid offset: \"%s\"", offset);
-        int limitValue = convertInt(limit, "Paging info contains the invalid limit: \"%s\"", limit);
+        int pageSizeValue = convertInt(pageSize, "Paging info contains the invalid page size: \"%s\"", pageSize);
         SortDir sortDirValue = convertSortDir(sortDir);
 
-        return new PageInfo(offsetValue, limitValue, new SortInfo(sortField, sortDirValue));
+        return new PageInfo(offsetValue, pageSizeValue, new SortInfo(sortField, sortDirValue));
     }
 }

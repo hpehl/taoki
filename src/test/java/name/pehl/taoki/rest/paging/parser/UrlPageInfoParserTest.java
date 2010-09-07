@@ -61,26 +61,26 @@ public class UrlPageInfoParserTest extends AbstractPageInfoParserTest
     }
 
 
-    private Map<String, Object> attributesFor(int offset, int limit)
+    private Map<String, Object> attributesFor(int offset, int pageSize)
     {
         Map<String, Object> attributes = new HashMap<String, Object>();
         attributes.put(PageInfoParser.OFFSET, String.valueOf(offset));
-        attributes.put(PageInfoParser.LIMIT, String.valueOf(limit));
+        attributes.put(PageInfoParser.PAGE_SIZE, String.valueOf(pageSize));
         return attributes;
     }
 
 
-    private Map<String, Object> attributesFor(int offset, int limit, String sortField)
+    private Map<String, Object> attributesFor(int offset, int pageSize, String sortField)
     {
-        Map<String, Object> attributes = attributesFor(offset, limit);
+        Map<String, Object> attributes = attributesFor(offset, pageSize);
         attributes.put(PageInfoParser.SORT_FIELD, sortField);
         return attributes;
     }
 
 
-    private Map<String, Object> attributesFor(int offset, int limit, String sortField, String sortDir)
+    private Map<String, Object> attributesFor(int offset, int pageSize, String sortField, String sortDir)
     {
-        Map<String, Object> attributes = attributesFor(offset, limit, sortField);
+        Map<String, Object> attributes = attributesFor(offset, pageSize, sortField);
         attributes.put(PageInfoParser.SORT_DIR, sortDir);
         return attributes;
     }

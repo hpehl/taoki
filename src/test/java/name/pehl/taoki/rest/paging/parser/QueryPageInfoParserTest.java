@@ -68,26 +68,26 @@ public class QueryPageInfoParserTest extends AbstractPageInfoParserTest
     }
 
 
-    private Form formFor(int offset, int limit)
+    private Form formFor(int offset, int pageSize)
     {
         Form form = new Form();
         form.add(PageInfoParser.OFFSET, String.valueOf(offset));
-        form.add(PageInfoParser.LIMIT, String.valueOf(limit));
+        form.add(PageInfoParser.PAGE_SIZE, String.valueOf(pageSize));
         return form;
     }
 
 
-    private Form formFor(int offset, int limit, String sortField)
+    private Form formFor(int offset, int pageSize, String sortField)
     {
-        Form form = formFor(offset, limit);
+        Form form = formFor(offset, pageSize);
         form.add(PageInfoParser.SORT_FIELD, sortField);
         return form;
     }
 
 
-    private Form formFor(int offset, int limit, String sortField, String sortDir)
+    private Form formFor(int offset, int pageSize, String sortField, String sortDir)
     {
-        Form form = formFor(offset, limit, sortField);
+        Form form = formFor(offset, pageSize, sortField);
         form.add(PageInfoParser.SORT_DIR, sortDir);
         return form;
     }

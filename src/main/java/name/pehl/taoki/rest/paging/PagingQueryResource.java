@@ -6,16 +6,14 @@ import name.pehl.taoki.rest.paging.parser.QueryPageInfoParser;
 import org.restlet.Request;
 
 /**
- * An {@linkplain AbstractPagingResource paging resource} which uses query
- * parameter of the resource as input. The query must contain the following
- * fields
+ * A {@linkplain AbstractPagingResource paging resource} which uses query
+ * parameters of the resource as input. The query must contain the following
+ * parameter:
  * <ul>
  * <li><code>offset</code><br/>
- * The offset for the paging
- * <li><code>last-index</code><br/>
- * The last index of the result. The <code>last-index</code> is used to
- * calculate the limit of the {@link PageInfo} instance:
- * <code>limit = lastIndex - offsetValue + 1</code>
+ * The offset in the result.
+ * <li><code>pageSize</code><br/>
+ * The size of one page. 
  * <li><code>sortField</code><br/>
  * The name of the field used for srting the result (optional)
  * <li><code>sortDir</code><br/>
@@ -25,9 +23,9 @@ import org.restlet.Request;
  * <p>
  * Examples:
  * <ul>
- * <li>http://server/resource?offset=0&limit=50
- * <li>http://server/resource?offset=100&limit=50&sortField=surname
- * <li>http://server/resource?offset=1&limit=2&sortField=surname&sortDir=aSc
+ * <li>http://server/resource?offset=0&pageSize=50
+ * <li>http://server/resource?offset=100&pageSize=50&sortField=surname
+ * <li>http://server/resource?offset=1&pageSize=2&sortField=surname&sortDir=aSc
  * </ul>
  * 
  * @author $Author$

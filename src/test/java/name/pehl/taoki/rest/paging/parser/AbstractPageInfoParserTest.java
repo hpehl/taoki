@@ -34,24 +34,24 @@ public abstract class AbstractPageInfoParserTest
     }
 
 
-    protected void assertPageInfo(PageInfo pageInfo, int offset, int limit)
+    protected void assertPageInfo(PageInfo pageInfo, int offset, int pageSize)
     {
-        assertPageInfo(pageInfo, offset, limit, null);
+        assertPageInfo(pageInfo, offset, pageSize, null);
     }
 
 
-    protected void assertPageInfo(PageInfo pageInfo, int offset, int limit, String sortField)
+    protected void assertPageInfo(PageInfo pageInfo, int offset, int pageSize, String sortField)
     {
-        assertPageInfo(pageInfo, offset, limit, sortField, SortDir.NONE);
+        assertPageInfo(pageInfo, offset, pageSize, sortField, SortDir.NONE);
     }
 
 
-    protected void assertPageInfo(PageInfo pageInfo, int offset, int limit, String sortField, SortDir sortDir)
+    protected void assertPageInfo(PageInfo pageInfo, int offset, int pageSize, String sortField, SortDir sortDir)
     {
         assertNotNull(pageInfo);
         assertNotNull(pageInfo.getSortInfo());
         assertEquals(offset, pageInfo.getOffset());
-        assertEquals(limit, pageInfo.getPageSize());
+        assertEquals(pageSize, pageInfo.getPageSize());
         assertEquals(sortField, pageInfo.getSortInfo().getSortField());
         assertEquals(sortDir, pageInfo.getSortInfo().getSortDir());
     }

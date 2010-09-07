@@ -6,16 +6,14 @@ import name.pehl.taoki.rest.paging.parser.UrlPageInfoParser;
 import org.restlet.Request;
 
 /**
- * An {@linkplain AbstractPagingResource paging resource} which uses the url of
+ * A {@linkplain AbstractPagingResource paging resource} which uses the url of
  * the resource as input. The url must contain the following template
  * parameters:
  * <ul>
  * <li><code>offset</code><br/>
- * The offset for the paging
- * <li><code>last-index</code><br/>
- * The last index of the result. The <code>last-index</code> is used to
- * calculate the limit of the {@link PageInfo} instance:
- * <code>limit = lastIndex - offsetValue + 1</code>
+ * The offset in the result.
+ * <li><code>pageSize</code><br/>
+ * The size of one page. 
  * <li><code>sortField</code><br/>
  * The name of the field used for srting the result (optional)
  * <li><code>sortDir</code><br/>

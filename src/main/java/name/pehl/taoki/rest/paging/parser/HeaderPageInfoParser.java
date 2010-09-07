@@ -67,12 +67,12 @@ public class HeaderPageInfoParser extends AbstractPageInfoParser
 
             int offsetValue = convertInt(offset, "Paging info \"%s\" contains the invalid offset: \"%s\"", header,
                     offset);
-            int lastIndexValue = convertInt(lastIndex, "Paging info \"%s\" contains the invalid limit: \"%s\"", header,
-                    lastIndex);
-            int limit = lastIndexValue - offsetValue + 1;
+            int lastIndexValue = convertInt(lastIndex, "Paging info \"%s\" contains the invalid last index: \"%s\"",
+                    header, lastIndex);
+            int pageSize = lastIndexValue - offsetValue + 1;
             SortDir sortDirValue = convertSortDir(sortDir);
 
-            return new PageInfo(offsetValue, limit, new SortInfo(sortField, sortDirValue));
+            return new PageInfo(offsetValue, pageSize, new SortInfo(sortField, sortDirValue));
         }
         else
         {

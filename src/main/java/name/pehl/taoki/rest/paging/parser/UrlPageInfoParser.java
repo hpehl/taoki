@@ -20,7 +20,8 @@ import name.pehl.taoki.rest.paging.SortInfo;
  * 
  * @see name.pehl.taoki.rest.paging.PagingUrlResource
  * @author $Author$
- * @version $Date$ $Revision$
+ * @version $Date$ $Revision: 98
+ *          $
  */
 public class UrlPageInfoParser extends AbstractPageInfoParser
 {
@@ -43,14 +44,14 @@ public class UrlPageInfoParser extends AbstractPageInfoParser
 
         Map<String, Object> attributes = (Map<String, Object>) input;
         String offset = (String) attributes.get(OFFSET);
-        String limit = (String) attributes.get(LIMIT);
+        String pageSize = (String) attributes.get(PAGE_SIZE);
         String sortField = (String) attributes.get(SORT_FIELD);
         String sortDir = (String) attributes.get(SORT_DIR);
 
         int offsetValue = convertInt(offset, "Paging info contains the invalid offset: \"%s\"", offset);
-        int limitValue = convertInt(limit, "Paging info contains the invalid limit: \"%s\"", limit);
+        int pageSizeValue = convertInt(pageSize, "Paging info contains the invalid page size: \"%s\"", pageSize);
         SortDir sortDirValue = convertSortDir(sortDir);
 
-        return new PageInfo(offsetValue, limitValue, new SortInfo(sortField, sortDirValue));
+        return new PageInfo(offsetValue, pageSizeValue, new SortInfo(sortField, sortDirValue));
     }
 }
