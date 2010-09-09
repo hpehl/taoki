@@ -14,8 +14,9 @@ import org.restlet.resource.ServerResource;
  * (specified as constructor argument) based on a specific
  * {@linkplain #getInput(Request) input}.
  * 
- * @author $Author:$
- * @version $Date:$ $Revision:$
+ * @author $Author$
+ * @version $Date$ $Revision: 97
+ *          $
  */
 public abstract class AbstractPagingResource extends ServerResource implements HasPageInfo
 {
@@ -36,26 +37,25 @@ public abstract class AbstractPagingResource extends ServerResource implements H
      * <ol>
      * <li>create a new {@link PageInfoParser} instance by calling
      * {@link #createPageInfoParser()}
-     * <li>get the input by calling {@link #getInput()}
+     * <li>get the input by calling {@link #getInput(Request)}
      * <li>create an instance of {@link PageInfo} by calling
      * {@link PageInfoParser#parse(Object)}
      * </ol>
      * <p>
      * If the input is invalid, an error message is logged.
      * 
-     * @param request
      * @return the {@link PageInfo} instance for the input provided by
      *         {@link #getInput(Request)} or <code>null</code> if the input was
      *         null or invalid.
      * @see name.pehl.taoki.rest.paging.HasPageInfo#getPageInfo(org.restlet.Request)
      */
     @Override
-    public PageInfo getPageInfo(Request request)
+    public PageInfo getPageInfo()
     {
         PageInfo pageInfo = null;
         if (pip != null)
         {
-            Object input = getInput(request);
+            Object input = getInput(getRequest());
             try
             {
                 pageInfo = pip.parse(input);
@@ -78,7 +78,7 @@ public abstract class AbstractPagingResource extends ServerResource implements H
     protected abstract Object getInput(Request request);
 
 
-    public PageInfoParser getPageInfoParser()
+    protected PageInfoParser getPageInfoParser()
     {
         return pip;
     }

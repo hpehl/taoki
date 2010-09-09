@@ -1,11 +1,10 @@
 package name.pehl.taoki.rest.paging;
 
-import static name.pehl.taoki.rest.paging.PageResult.MAX_TOTAL;
+import static name.pehl.taoki.rest.paging.NumberFactory.*;
+import static name.pehl.taoki.rest.paging.PageResult.*;
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import org.junit.Test;
 
@@ -53,15 +52,15 @@ public class PageResultTest
         PageResult<Integer> underTest = null;
 
         // limit(10) > total(5)
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(5));
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(5));
         assertPageResult(underTest, 5, 1, 5, true, 0, 4);
 
         // limit(10) == total(10)
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(10));
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(10));
         assertPageResult(underTest, 10, 1, 10, true, 0, 9);
 
         // limit(10) < total(50)
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(50));
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(50));
         assertPageResult(underTest, 10, 5, 50, true, 0, 9);
     }
 
@@ -71,22 +70,22 @@ public class PageResultTest
     {
         PageResult<Integer> underTest = null;
 
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(42)).first();
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(42)).first();
         assertPageResult(underTest, 10, 5, 42, true, 0, 9);
         assertFalse(underTest.hasPrevious());
         assertTrue(underTest.hasNext());
 
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(42)).previous();
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(42)).previous();
         assertPageResult(underTest, 10, 5, 42, true, 0, 9);
         assertFalse(underTest.hasPrevious());
         assertTrue(underTest.hasNext());
 
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(42)).next();
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(42)).next();
         assertPageResult(underTest, 10, 5, 42, true, 10, 19);
         assertTrue(underTest.hasPrevious());
         assertTrue(underTest.hasNext());
 
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(42));
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(42));
         for (int i = 0; i < underTest.pages(); i++)
         {
             underTest = underTest.page(i);
@@ -111,7 +110,7 @@ public class PageResultTest
         }
         try
         {
-            underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(42)).page(-1);
+            underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(42)).page(-1);
             fail("IndexOutOfBoundsException expected");
         }
         catch (IndexOutOfBoundsException e)
@@ -120,7 +119,7 @@ public class PageResultTest
         }
         try
         {
-            underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(42)).page(6);
+            underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(42)).page(6);
             fail("IndexOutOfBoundsException expected");
         }
         catch (IndexOutOfBoundsException e)
@@ -128,7 +127,7 @@ public class PageResultTest
             // expected
         }
 
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(42)).last();
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(42)).last();
         assertPageResult(underTest, 2, 5, 42, true, 40, 41);
         assertTrue(underTest.hasPrevious());
         assertFalse(underTest.hasNext());
@@ -225,51 +224,51 @@ public class PageResultTest
         PageResult<Integer> underTest = null;
 
         // limit(10) > created list(5)
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(5), -1);
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(5), -1);
         assertPageResult(underTest, 5, 1, 5, false, 0, 4);
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(5), 0);
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(5), 0);
         assertPageResult(underTest, 5, 1, 5, false, 0, 4);
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(5), 4);
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(5), 4);
         assertPageResult(underTest, 5, 1, 5, false, 0, 4);
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(5), 5);
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(5), 5);
         assertPageResult(underTest, 5, 1, 5, false, 0, 4);
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(5), 6);
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(5), 6);
         assertPageResult(underTest, 5, 1, 6, false, 0, 4);
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(5), MAX_TOTAL);
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(5), MAX_TOTAL);
         assertPageResult(underTest, 5, 1, MAX_TOTAL, false, 0, 4);
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(5), MAX_TOTAL + 1);
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(5), MAX_TOTAL + 1);
         assertPageResult(underTest, 5, 1, MAX_TOTAL, false, 0, 4);
 
         // limit(10) == created list(5)
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(10), -1);
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(10), -1);
         assertPageResult(underTest, 10, 1, 10, false, 0, 9);
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(10), 0);
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(10), 0);
         assertPageResult(underTest, 10, 1, 10, false, 0, 9);
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(10), 9);
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(10), 9);
         assertPageResult(underTest, 10, 1, 10, false, 0, 9);
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(10), 10);
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(10), 10);
         assertPageResult(underTest, 10, 1, 10, false, 0, 9);
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(10), 11);
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(10), 11);
         assertPageResult(underTest, 10, 1, 11, false, 0, 9);
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(10), MAX_TOTAL);
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(10), MAX_TOTAL);
         assertPageResult(underTest, 10, 1, MAX_TOTAL, false, 0, 9);
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(10), MAX_TOTAL + 1);
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(10), MAX_TOTAL + 1);
         assertPageResult(underTest, 10, 1, MAX_TOTAL, false, 0, 9);
 
         // limit(10) < created list(50)
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(50), -1);
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(50), -1);
         assertPageResult(underTest, 10, 1, 50, false, 0, 9);
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(50), 0);
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(50), 0);
         assertPageResult(underTest, 10, 1, 50, false, 0, 9);
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(50), 24);
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(50), 24);
         assertPageResult(underTest, 10, 1, 50, false, 0, 9);
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(50), 25);
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(50), 25);
         assertPageResult(underTest, 10, 1, 50, false, 0, 9);
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(50), 26);
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(50), 26);
         assertPageResult(underTest, 10, 1, 50, false, 0, 9);
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(50), MAX_TOTAL);
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(50), MAX_TOTAL);
         assertPageResult(underTest, 10, 1, MAX_TOTAL, false, 0, 9);
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(50), MAX_TOTAL + 1);
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(50), MAX_TOTAL + 1);
         assertPageResult(underTest, 10, 1, MAX_TOTAL, false, 0, 9);
     }
 
@@ -279,20 +278,20 @@ public class PageResultTest
     {
         PageResult<Integer> underTest = null;
 
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(42), 42).first();
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(42), 42).first();
         assertNull(underTest);
 
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(42), 42).previous();
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(42), 42).previous();
         assertNull(underTest);
 
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(42), 42).next();
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(42), 42).next();
         assertNull(underTest);
 
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(42), 42).page(0);
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(42), 42).page(0);
         assertNull(underTest);
         try
         {
-            underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(42)).page(-1);
+            underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(42)).page(-1);
             fail("IndexOutOfBoundsException expected");
         }
         catch (IndexOutOfBoundsException e)
@@ -301,7 +300,7 @@ public class PageResultTest
         }
         try
         {
-            underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(42)).page(6);
+            underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(42)).page(6);
             fail("IndexOutOfBoundsException expected");
         }
         catch (IndexOutOfBoundsException e)
@@ -309,7 +308,7 @@ public class PageResultTest
             // expected
         }
 
-        underTest = new PageResult<Integer>(PAGE_INFO_0_10, createList(42), 42).last();
+        underTest = new PageResult<Integer>(PAGE_INFO_0_10, numbers(42), 42).last();
         assertNull(underTest);
     }
 
@@ -334,16 +333,5 @@ public class PageResultTest
         assertEquals(pages, underTest.pages());
         assertEquals(total, underTest.total());
         assertEquals(navigable, underTest.isNavigable());
-    }
-
-
-    private List<Integer> createList(int size)
-    {
-        List<Integer> list = new ArrayList<Integer>(size);
-        for (int i = 0; i < size; i++)
-        {
-            list.add(i);
-        }
-        return list;
     }
 }

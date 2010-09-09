@@ -9,7 +9,8 @@ import org.junit.Test;
 
 /**
  * @author $Author$
- * @version $Date$ $Revision$
+ * @version $Date$ $Revision: 94
+ *          $
  */
 public class HeaderPageInfoParserTest extends AbstractPageInfoParserTest
 {
@@ -54,7 +55,7 @@ public class HeaderPageInfoParserTest extends AbstractPageInfoParserTest
         }
         try
         {
-            underTest.parse("items=0-9/");
+            underTest.parse("items=0-9;");
             fail(PAGE_INFO_PARSE_EXCEPTION_EXPECTED);
         }
         catch (PageInfoParseException e)
@@ -64,7 +65,7 @@ public class HeaderPageInfoParserTest extends AbstractPageInfoParserTest
 
         try
         {
-            underTest.parse("items=0-9/foo/");
+            underTest.parse("items=0-9;foo:");
             fail(PAGE_INFO_PARSE_EXCEPTION_EXPECTED);
         }
         catch (PageInfoParseException e)
@@ -74,7 +75,7 @@ public class HeaderPageInfoParserTest extends AbstractPageInfoParserTest
 
         try
         {
-            underTest.parse("items=0-9/foo/bar");
+            underTest.parse("items=0-9;foo:bar");
             fail(PAGE_INFO_PARSE_EXCEPTION_EXPECTED);
         }
         catch (PageInfoParseException e)
@@ -92,16 +93,16 @@ public class HeaderPageInfoParserTest extends AbstractPageInfoParserTest
         pageInfo = underTest.parse("items=0-9");
         assertPageInfo(pageInfo, 0, 10);
 
-        pageInfo = underTest.parse("items=0-9/foo");
+        pageInfo = underTest.parse("items=0-9;foo");
         assertPageInfo(pageInfo, 0, 10, FOO);
 
-        pageInfo = underTest.parse("items=0-9/foo/asc");
+        pageInfo = underTest.parse("items=0-9;foo:asc");
         assertPageInfo(pageInfo, 0, 10, FOO, SortDir.ASC);
 
-        pageInfo = underTest.parse("items=0-9/foo/desc");
+        pageInfo = underTest.parse("items=0-9;foo:desc");
         assertPageInfo(pageInfo, 0, 10, FOO, SortDir.DESC);
 
-        pageInfo = underTest.parse("items=0-9/foo/none");
+        pageInfo = underTest.parse("items=0-9;foo:none");
         assertPageInfo(pageInfo, 0, 10, FOO, SortDir.NONE);
     }
 }

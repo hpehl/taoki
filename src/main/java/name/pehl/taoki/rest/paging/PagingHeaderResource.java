@@ -3,15 +3,17 @@ package name.pehl.taoki.rest.paging;
 import name.pehl.taoki.rest.paging.parser.HeaderPageInfoParser;
 
 import org.restlet.Request;
-import org.restlet.data.Form;
+import org.restlet.data.Parameter;
+import org.restlet.engine.http.header.HeaderConstants;
+import org.restlet.util.Series;
 
 /**
- * A {@linkplain AbstractPagingResource paging resource} which uses the <a
- * href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.35" >Range
- * Header</a> as input. The page info is expected in the following format:
+ * A {@linkplain AbstractPagingResource paging resource} which uses the custom
+ * header <code>Item-Range</code> as input. The page info is expected in the
+ * following format:
  * 
  * <pre>
- * Range: items={offset}-{last-index}[/{sortField}[/{sortDir}]]
+ * Item-Range: items={offset}-{last-index}[;{sortField}[:{sortDir}]]
  * </pre>
  * <ul>
  * <li><code>offset</code><br/>
@@ -29,9 +31,9 @@ import org.restlet.data.Form;
  * <p>
  * Examples:
  * <ul>
- * <li>Range: items=0-24
- * <li>Range: items=25-49/surname
- * <li>Range: items=100-124/createdAt/dEsC
+ * <li>Item-Range: items=0-24
+ * <li>Item-Range: items=25-49;surname
+ * <li>Item-Range: items=100-124;createdAt:dEsC
  * </ul>
  * 
  * @author $Author$
@@ -40,6 +42,12 @@ import org.restlet.data.Form;
  */
 public class PagingHeaderResource extends AbstractPagingResource
 {
+    /**
+     * The name of the custom header carrying the item range data.
+     */
+    public static final String ITEM_RANGE_HEADER = "Item-Range";
+
+
     /**
      * Construct a new instance with a {@link HeaderPageInfoParser}
      */
@@ -50,24 +58,25 @@ public class PagingHeaderResource extends AbstractPagingResource
 
 
     /**
-     * Returns the <a
-     * href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.35"
-     * >Range Header</a>.
+     * Returns the value of the custom <code>Item-Range</code> header, or
+     * <code>null</code> if no such header was found.
      * 
      * @param request
-     * @return The range header or <code>null</code> if no header was specified.
+     * @return the value of the custom <code>Item-Range</code> header, or
+     *         <code>null</code> if no such header was found.
      * @see name.pehl.taoki.rest.paging.AbstractPagingResource#getInput(org.restlet.Request)
      */
     @Override
+    @SuppressWarnings("unchecked")
     protected Object getInput(Request request)
     {
-        String rangeHeader = null;
-        Object object = request.getAttributes().get("org.restlet.http.headers");
-        if (object != null && object instanceof Form)
+        String itemRangeHeader = null;
+        Series<Parameter> additionalHeaders = (Series<Parameter>) request.getAttributes().get(
+                HeaderConstants.ATTRIBUTE_HEADERS);
+        if (additionalHeaders != null)
         {
-            Form headers = (Form) object;
-            rangeHeader = headers.getFirstValue("Range");
+            itemRangeHeader = additionalHeaders.getFirstValue(ITEM_RANGE_HEADER);
         }
-        return rangeHeader;
+        return itemRangeHeader;
     }
 }

@@ -518,6 +518,17 @@ public class PageResult<T> implements Iterable<T>
     }
 
 
+    /**
+     * Returns the {@link PageInfo} instance.
+     * 
+     * @return the {@link PageInfo} instance.
+     */
+    public PageInfo getPageInfo()
+    {
+        return pageInfo;
+    }
+
+
     // -------------------------------------------------- page delegate methods
 
     /**

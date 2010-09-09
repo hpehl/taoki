@@ -12,7 +12,7 @@ import name.pehl.taoki.rest.paging.SortInfo;
  * format:
  * 
  * <pre>
- * items={offset}-{last-index}[/{sortField}[/{sortDir}]]
+ * items={offset}-{last-index}[;{sortField}[:{sortDir}]]
  * </pre>
  * 
  * This parser works hand in hand with the
@@ -25,7 +25,7 @@ import name.pehl.taoki.rest.paging.SortInfo;
  */
 public class HeaderPageInfoParser extends AbstractPageInfoParser
 {
-    private static final String REGEXP = "^items=([0-9]+)-([0-9]+)(/([\\w]+)(/(asc|desc|none))?)?";
+    private static final String REGEXP = "^items=([0-9]+)-([0-9]+)(;([\\w]+)(:(asc|desc|none))?)?";
 
 
     /**
