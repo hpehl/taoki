@@ -25,7 +25,7 @@ public class NumbersQueryResourceIntegrationTest extends NumbersIntegrationTest
     @Test
     public void testPaging() throws IOException, ResourceException, JSONException
     {
-        ClientResource resource = new ClientResource(BASE_URL + "/numbers?offset=5&pageSsize=19");
+        ClientResource resource = new ClientResource(BASE_URL + "/numbers?offset=5&pageSize=19");
         assertJson(resource);
     }
 }
