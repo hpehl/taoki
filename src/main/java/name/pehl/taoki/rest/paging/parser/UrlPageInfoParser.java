@@ -11,7 +11,7 @@ import name.pehl.taoki.rest.paging.SortInfo;
  * following keys
  * <ul>
  * <li>offset
- * <li>limit
+ * <li>pageSize
  * <li>sortField (optional)
  * <li>sortDir (optional)
  * </ul>

@@ -1,6 +1,5 @@
 package name.pehl.taoki.rest.paging;
 
-import name.pehl.taoki.rest.paging.parser.PageInfoParser;
 import name.pehl.taoki.rest.paging.parser.QueryPageInfoParser;
 
 import org.restlet.Request;
@@ -13,7 +12,7 @@ import org.restlet.Request;
  * <li><code>offset</code><br/>
  * The offset in the result.
  * <li><code>pageSize</code><br/>
- * The size of one page. 
+ * The size of one page.
  * <li><code>sortField</code><br/>
  * The name of the field used for srting the result (optional)
  * <li><code>sortDir</code><br/>
@@ -37,7 +36,7 @@ public abstract class PagingQueryResource extends AbstractPagingResource
     /**
      * Construct a new instance with a {@link QueryPageInfoParser}
      */
-    public PagingQueryResource(PageInfoParser pip)
+    public PagingQueryResource()
     {
         super(new QueryPageInfoParser());
     }

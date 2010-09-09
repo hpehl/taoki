@@ -14,15 +14,16 @@ import org.restlet.routing.Router;
  * Base class for all integration tests. Starts a standalone http server on
  * localhost at port {@link #PORT}.
  * 
- * @author $Author:$
- * @version $Date:$ $Revision:$
+ * @author $Author$
+ * @version $Date$ $Revision: 135
+ *          $
  */
-public abstract class IntegrationTestCase
+public abstract class IntegrationTest
 {
     public static final int DEFAULT_PORT = 1337;
     public static final String PORT_SYSTEM_PROPERTY = "taoki.test.port";
     public static int PORT = getTestPort();
-    public static final String BASE_URL = "http://localhost:" + PORT;  
+    public static final String BASE_URL = "http://localhost:" + PORT;
 
     protected Component component;
 
@@ -86,5 +87,10 @@ public abstract class IntegrationTestCase
     }
 
 
+    /**
+     * Must return the urls and attached resources.
+     * 
+     * @return
+     */
     protected abstract Map<String, Class<? extends ServerResource>> getRoutes();
 }

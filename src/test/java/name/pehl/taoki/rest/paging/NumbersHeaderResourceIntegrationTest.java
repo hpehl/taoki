@@ -1,42 +1,37 @@
 package name.pehl.taoki.rest.paging;
 
-import static junit.framework.Assert.*;
-
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
-import name.pehl.taoki.rest.IntegrationTestCase;
-
-import org.junit.Ignore;
+import org.json.JSONException;
 import org.junit.Test;
-import org.restlet.representation.Representation;
+import org.restlet.data.Form;
+import org.restlet.engine.http.header.HeaderConstants;
 import org.restlet.resource.ClientResource;
+import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 /**
- * @author $Author:$
- * @version $Date:$ $Revision:$
+ * @author $Author$
+ * @version $Date$ $Revision: 135
+ *          $
  */
-public class NumbersHeaderResourceIntegrationTest extends IntegrationTestCase
+public class NumbersHeaderResourceIntegrationTest extends NumbersIntegrationTest
 {
     @Override
-    protected Map<String, Class<? extends ServerResource>> getRoutes()
+    protected Class<? extends ServerResource> getResourceClass()
     {
-        Map<String, Class<? extends ServerResource>> routes = new HashMap<String, Class<? extends ServerResource>>();
-        routes.put("/numbers", NumbersHeaderResource.class);
-        return routes;
+        return NumbersHeaderResource.class;
     }
 
 
     @Test
-    @Ignore
-    public void testRepresent() throws IOException
+    public void testPaging() throws IOException, ResourceException, JSONException
     {
         ClientResource resource = new ClientResource(BASE_URL + "/numbers");
-        Representation representation = resource.get();
-        assertNotNull(representation);
-        String json = representation.getText();
-        assertNotNull(json);
+        resource.getRequest()
+                .getAttributes()
+                .put(HeaderConstants.ATTRIBUTE_HEADERS,
+                        new Form(PagingHeaderResource.ITEM_RANGE_HEADER + "=items=5-23"));
+        assertJson(resource);
     }
 }

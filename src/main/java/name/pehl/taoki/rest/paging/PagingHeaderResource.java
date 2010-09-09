@@ -40,7 +40,7 @@ import org.restlet.util.Series;
  * @version $Date$ $Revision:
  *          85318 $
  */
-public class PagingHeaderResource extends AbstractPagingResource
+public abstract class PagingHeaderResource extends AbstractPagingResource
 {
     /**
      * The name of the custom header carrying the item range data.
@@ -71,11 +71,10 @@ public class PagingHeaderResource extends AbstractPagingResource
     protected Object getInput(Request request)
     {
         String itemRangeHeader = null;
-        Series<Parameter> additionalHeaders = (Series<Parameter>) request.getAttributes().get(
-                HeaderConstants.ATTRIBUTE_HEADERS);
-        if (additionalHeaders != null)
+        Series<Parameter> header = (Series<Parameter>) request.getAttributes().get(HeaderConstants.ATTRIBUTE_HEADERS);
+        if (header != null)
         {
-            itemRangeHeader = additionalHeaders.getFirstValue(ITEM_RANGE_HEADER);
+            itemRangeHeader = header.getFirstValue(ITEM_RANGE_HEADER);
         }
         return itemRangeHeader;
     }

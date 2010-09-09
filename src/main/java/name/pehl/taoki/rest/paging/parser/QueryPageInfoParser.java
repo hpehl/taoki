@@ -11,7 +11,7 @@ import org.restlet.data.Form;
  * following fields
  * <ul>
  * <li>offset
- * <li>limit
+ * <li>pageSize
  * <li>sortField (optional)
  * <li>sortDir (optional)
  * </ul>
