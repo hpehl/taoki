@@ -1,7 +1,6 @@
 package name.pehl.taoki.rest.paging;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.*;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -43,5 +42,13 @@ public abstract class NumbersIntegrationTest extends IntegrationTest
         assertEquals(3, json.getInt("pages"));
         assertEquals(42, json.getInt("total"));
         assertEquals(new JSONArray(NumberFactory.numbers(5, 23)).toString(), json.getJSONArray("numbers").toString());
+    }
+
+
+    protected void assertError(ClientResource resource) throws ResourceException, JSONException, IOException
+    {
+        JSONObject json = new JSONObject(resource.get().getText());
+        assertNotNull(json);
+        assertEquals(NumbersResourceHelper.NO_PAGE_INFO, json.getString("error"));
     }
 }

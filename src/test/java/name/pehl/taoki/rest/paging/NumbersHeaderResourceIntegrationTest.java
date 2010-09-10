@@ -25,6 +25,24 @@ public class NumbersHeaderResourceIntegrationTest extends NumbersIntegrationTest
 
 
     @Test
+    public void testNoPaging() throws IOException, ResourceException, JSONException
+    {
+        ClientResource resource = new ClientResource(BASE_URL + "/numbers");
+        assertError(resource);
+    }
+
+
+    @Test
+    public void testInvalidPaging() throws IOException, ResourceException, JSONException
+    {
+        ClientResource resource = new ClientResource(BASE_URL + "/numbers");
+        resource.getRequest().getAttributes()
+                .put(HeaderConstants.ATTRIBUTE_HEADERS, new Form(PagingHeaderResource.ITEM_RANGE_HEADER + "=foo"));
+        assertError(resource);
+    }
+
+
+    @Test
     public void testPaging() throws IOException, ResourceException, JSONException
     {
         ClientResource resource = new ClientResource(BASE_URL + "/numbers");

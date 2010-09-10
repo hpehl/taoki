@@ -21,6 +21,7 @@ public class NumbersUrlResourceIntegrationTest extends NumbersIntegrationTest
     protected Map<String, Class<? extends ServerResource>> getRoutes()
     {
         Map<String, Class<? extends ServerResource>> routes = new HashMap<String, Class<? extends ServerResource>>();
+        routes.put("/numbers", getResourceClass());
         routes.put("/numbers/{offset}/{pageSize}", getResourceClass());
         return routes;
     }
@@ -30,6 +31,22 @@ public class NumbersUrlResourceIntegrationTest extends NumbersIntegrationTest
     protected Class<? extends ServerResource> getResourceClass()
     {
         return NumbersUrlResource.class;
+    }
+
+
+    @Test
+    public void testNoPaging() throws IOException, ResourceException, JSONException
+    {
+        ClientResource resource = new ClientResource(BASE_URL + "/numbers");
+        assertError(resource);
+    }
+
+
+    @Test
+    public void testInvalidPaging() throws IOException, ResourceException, JSONException
+    {
+        ClientResource resource = new ClientResource(BASE_URL + "/numbers/foo/bar");
+        assertError(resource);
     }
 
 

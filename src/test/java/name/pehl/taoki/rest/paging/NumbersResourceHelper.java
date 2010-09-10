@@ -14,12 +14,16 @@ import org.json.JSONWriter;
  */
 public final class NumbersResourceHelper
 {
+    public static final String NO_PAGE_INFO = "No page info given";
+    public static final String JSON_EXCEPTION = "JSONException";
+
+
     public static String numbersAsJson(PageInfo pageInfo)
     {
         StringWriter writer = new StringWriter();
         if (pageInfo == null)
         {
-            writer.write("{\"error\":\"No page info given\"}");
+            writer.write("{\"error\":\"" + NO_PAGE_INFO + "\"}");
         }
         else
         {
@@ -42,7 +46,7 @@ public final class NumbersResourceHelper
             }
             catch (JSONException e)
             {
-                writer.write("{\"error\":\"" + e.getMessage() + "\"}");
+                writer.write("{\"error\":\"" + JSON_EXCEPTION + "\"}");
             }
         }
         return writer.toString();
