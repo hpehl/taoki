@@ -17,16 +17,115 @@ import com.google.inject.Singleton;
 
 /**
  * Abstract base class for a servlet which acts as a dispatcher for all
- * resources. Concrete subclasses have to override the method
- * {@link #createRouter(Injector, Context)} and provide a concrete
- * implementation of {@link GuiceRouter}:
+ * resources in a Guice based RESTful webapp. Concrete subclasses have to
+ * override the method {@link #createRouter(Injector, Context)} and provide a
+ * concrete implementation of {@link GuiceRouter}.
+ * <p>
+ * The following code snippets show a typical setup:
+ * <p>
+ * <b>web.xml:</b>
  * 
  * <pre>
+ * &lt;web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5"&gt;
+ *     &lt;filter&gt;
+ *         &lt;filter-name&gt;guiceFilter&lt;/filter-name&gt;
+ *         &lt;filter-class&gt;com.google.inject.servlet.GuiceFilter&lt;/filter-class&gt;
+ *     &lt;/filter&gt;
+ *     &lt;filter-mapping&gt;
+ *         &lt;filter-name&gt;guiceFilter&lt;/filter-name&gt;
+ *         &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+ *     &lt;/filter-mapping&gt;
+ *     &lt;listener&gt;
+ *         &lt;listener-class&gt;name.pehl.tire.server.servlet.ServletConfig&lt;/listener-class&gt;
+ *     &lt;/listener&gt;
+ * &lt;/web-app&gt;
+ * </pre>
+ * <p>
+ * <b>ServletConfig:</b>
+ * 
+ * <pre>
+ * public class ServletConfig extends GuiceServletContextListener
+ * {
+ *     &#064;Override
+ *     protected Injector getInjector()
+ *     {
+ *         // Further modules are omitted...
+ *         return Guice.createInjector(new ServletModule(), new BookstoreModule());
+ *     }
+ * }
+ * </pre>
+ * <p>
+ * <b>ServletModule & RestletServlet:</b>
+ * 
+ * <pre>
+ * public class ServletModule extends com.google.inject.servlet.ServletModule
+ * {
+ *     &#064;Override
+ *     protected void configureServlets()
+ *     {
+ *         serve(&quot;/rest/v1/*&quot;).with(BookstoreRestletServlet.class);
+ *     }
+ * }
+ * 
+ * &#064;Singleton
  * public class BookstoreRestletServlet extends RestletServlet
  * {
- *     protected GuiceRouter createRouter(final Injector injector, final Context context)
+ *     &#064;Override
+ *     protected GuiceRouter createRouter(Injector injector, Context context)
  *     {
- *         return new BookstoreGuiceRouter(injector, context);
+ *         return new BookstoreRouter(injector, context);
+ *     }
+ * }
+ * </pre>
+ * <p>
+ * <b>Router:</b>
+ * 
+ * <pre>
+ * public class BookstoreRouter extends GuiceRouter
+ * {
+ *     public BookstoreRouter(Injector injector, Context context)
+ *     {
+ *         super(injector, context);
+ *     }
+ * 
+ * 
+ *     &#064;Override
+ *     protected void attachRoutes()
+ *     {
+ *         attach(&quot;/books&quot;, BooksResource.class);
+ *     }
+ * }
+ * </pre>
+ * <p>
+ * <b>Resources:</b>
+ * 
+ * <pre>
+ * public class BookstoreModule extends AbstractModule
+ * {
+ *     &#064;Override
+ *     protected void configure()
+ *     {
+ *         bind(BookstoreService.class).to(BookstoreServiceImpl.class);
+ *         bind(BooksResource.class);
+ *     }
+ * }
+ * 
+ * public class BooksResource extends ServerResource
+ * {
+ *     private final BookstoreService service;
+ * 
+ * 
+ *     &#064;Inject
+ *     public ProjectsResource(BookstoreService service)
+ *     {
+ *         this.service = service;
+ *     }
+ * 
+ * 
+ *     &#064;Get
+ *     public List&lt;Book&gt; represent()
+ *     {
+ *         return service.listBooks();
  *     }
  * }
  * </pre>

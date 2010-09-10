@@ -6,8 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * @author $Author:$
- * @version $Revision:$
+ * @author $Author$
+ * @version $Revision$
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)

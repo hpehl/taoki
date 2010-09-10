@@ -26,6 +26,9 @@ import com.google.inject.Injector;
  *     }
  * }
  * </pre>
+ * <p>
+ * See {@link name.pehl.taoki.RestletServlet RestletServlet} for further
+ * details.
  * 
  * @author $Author$
  * @version $Revision$

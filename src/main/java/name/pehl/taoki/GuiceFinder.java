@@ -11,6 +11,9 @@ import com.google.inject.Injector;
 /**
  * A finder which uses the specified {@link Injector} to create resources. The
  * resources are created using <code>injector.getInstance(targetClass)</code>.
+ * <p>
+ * See {@link name.pehl.taoki.RestletServlet RestletServlet} for further
+ * details.
  * 
  * @author $Author$
  * @version $Revision$
