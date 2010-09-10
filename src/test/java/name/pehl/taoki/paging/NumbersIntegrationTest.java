@@ -3,14 +3,14 @@ package name.pehl.taoki.paging;
 import static junit.framework.Assert.*;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
-import name.pehl.taoki.IntegrationTest;
+import name.pehl.taoki.TestComponent;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.After;
+import org.junit.Before;
 import org.restlet.resource.ClientResource;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
@@ -20,14 +20,26 @@ import org.restlet.resource.ServerResource;
  * @version $LastChangedRevision:$
  */
 
-public abstract class NumbersIntegrationTest extends IntegrationTest
+public abstract class NumbersIntegrationTest
 {
-    @Override
-    protected Map<String, Class<? extends ServerResource>> getRoutes()
+    protected TestComponent testComponent = null;
+
+
+    @Before
+    public void setUp() throws Exception
     {
-        Map<String, Class<? extends ServerResource>> routes = new HashMap<String, Class<? extends ServerResource>>();
-        routes.put("/numbers", getResourceClass());
-        return routes;
+        testComponent = new TestComponent();
+        testComponent.startWith("/numbers", getResourceClass());
+    }
+
+
+    @After
+    public void tearDown() throws Exception
+    {
+        if (testComponent != null)
+        {
+            testComponent.stop();
+        }
     }
 
 

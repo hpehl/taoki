@@ -1,10 +1,11 @@
 package name.pehl.taoki.paging;
 
+import static name.pehl.taoki.TestComponent.*;
+
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.json.JSONException;
+import org.junit.Before;
 import org.junit.Test;
 import org.restlet.resource.ClientResource;
 import org.restlet.resource.ResourceException;
@@ -17,13 +18,11 @@ import org.restlet.resource.ServerResource;
  */
 public class NumbersUrlResourceIntegrationTest extends NumbersIntegrationTest
 {
-    @Override
-    protected Map<String, Class<? extends ServerResource>> getRoutes()
+    @Before
+    public void setUp() throws Exception
     {
-        Map<String, Class<? extends ServerResource>> routes = new HashMap<String, Class<? extends ServerResource>>();
-        routes.put("/numbers", getResourceClass());
-        routes.put("/numbers/{offset}/{pageSize}", getResourceClass());
-        return routes;
+        super.setUp();
+        testComponent.attach("/numbers/{offset}/{pageSize}", getResourceClass());
     }
 
 
@@ -31,14 +30,6 @@ public class NumbersUrlResourceIntegrationTest extends NumbersIntegrationTest
     protected Class<? extends ServerResource> getResourceClass()
     {
         return NumbersUrlResource.class;
-    }
-
-
-    @Test
-    public void testNoPaging() throws IOException, ResourceException, JSONException
-    {
-        ClientResource resource = new ClientResource(BASE_URL + "/numbers");
-        assertError(resource);
     }
 
 

@@ -1,8 +1,8 @@
 package name.pehl.taoki.paging;
 
-import java.io.IOException;
+import static name.pehl.taoki.TestComponent.*;
 
-import name.pehl.taoki.paging.PagingHeaderResource;
+import java.io.IOException;
 
 import org.json.JSONException;
 import org.junit.Test;

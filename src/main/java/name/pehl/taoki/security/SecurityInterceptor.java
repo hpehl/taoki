@@ -25,6 +25,12 @@ public class SecurityInterceptor implements MethodInterceptor
     }
 
 
+    protected SecurityCheck getSecurityCheck()
+    {
+        return securityCheck;
+    }
+
+
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable
     {

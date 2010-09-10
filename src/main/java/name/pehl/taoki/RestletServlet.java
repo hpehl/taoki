@@ -45,11 +45,10 @@ public abstract class RestletServlet extends HttpServlet
     @Override
     public void init() throws ServletException
     {
-        Context context = new Context();
-        Application application = new Application();
-        application.setContext(context);
-        application.setInboundRoot(createRouter(injector, context));
         adapter = new ServletAdapter(getServletContext());
+        Context context = adapter.getContext().createChildContext();
+        Application application = new Application(context);
+        application.setInboundRoot(createRouter(injector, context));
         adapter.setNext(application);
     }
 

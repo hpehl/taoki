@@ -1,5 +1,7 @@
 package name.pehl.taoki.paging;
 
+import static name.pehl.taoki.TestComponent.*;
+
 import java.io.IOException;
 
 import org.json.JSONException;
