@@ -16,7 +16,7 @@ import org.restlet.Request;
  * <li><code>sortField</code><br/>
  * The name of the field used for srting the result (optional)
  * <li><code>sortDir</code><br/>
- * The sort direction. Must match (case insensitiv) one of the constants in
+ * The sort direction (optional). Must match (case insensitiv) one of the constants in
  * {@link SortDir}
  * </ul>
  * <p>
