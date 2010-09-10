@@ -1,6 +1,6 @@
 package name.pehl.taoki.security;
 
-import name.pehl.taoki.rest.GuiceFinder;
+import name.pehl.taoki.GuiceFinder;
 
 import org.restlet.Context;
 import org.restlet.Request;

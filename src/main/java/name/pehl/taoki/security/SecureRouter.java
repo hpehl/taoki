@@ -1,6 +1,6 @@
 package name.pehl.taoki.security;
 
-import name.pehl.taoki.rest.GuiceRouter;
+import name.pehl.taoki.GuiceRouter;
 
 import org.restlet.Context;
 import org.restlet.resource.Finder;
