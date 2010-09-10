@@ -16,19 +16,19 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 
 /**
- * @author $Author:$
- * @version $Date:$ $Revision:$
+ * @author $Author$
+ * @version $Date$ $Revision$
  */
 public abstract class HitchhikingIntegrationTest
 {
-    private HitchhikingComponent securityComponent;
+    private HitchhikingComponent component;
 
 
     @Before
     public void setUp() throws Exception
     {
-        securityComponent = new HitchhikingComponent(Guice.createInjector(getModule()));
-        securityComponent.startWith("/hitchhiking", getResourceClass());
+        component = new HitchhikingComponent(Guice.createInjector(getModule()));
+        component.startWith("/hitchhiking", getResourceClass());
     }
 
 
@@ -41,9 +41,9 @@ public abstract class HitchhikingIntegrationTest
     @After
     public void tearDown() throws Exception
     {
-        if (securityComponent != null)
+        if (component != null)
         {
-            securityComponent.stop();
+            component.stop();
         }
     }
 

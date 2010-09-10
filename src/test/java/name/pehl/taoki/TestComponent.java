@@ -7,8 +7,9 @@ import org.restlet.resource.ServerResource;
 import org.restlet.routing.Router;
 
 /**
- * @author $Author:$
- * @version $Date:$ $Revision:$
+ * @author $Author$
+ * @version $Date$ $Revision: 149
+ *          $
  */
 public class TestComponent extends Component
 {

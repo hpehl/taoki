@@ -5,8 +5,9 @@ import org.restlet.resource.ServerResource;
 import com.google.inject.AbstractModule;
 
 /**
- * @author $Author:$
- * @version $Date:$ $Revision:$
+ * @author $Author$
+ * @version $Date$ $Revision: 149
+ *          $
  */
 public class HitchhikingResourceGetAnnotationIntegrationTest extends HitchhikingIntegrationTest
 {

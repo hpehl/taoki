@@ -194,6 +194,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.6</version>
                 <configuration>
+                    <excludes>
+                        <exclude>**/TestComponent.java</exclude>
+                    </excludes>
                     <classpathDependencyExcludes>
                         <classpathDependencyExcludes>org.restlet.gae:org.restlet</classpathDependencyExcludes>
                         <classpathDependencyExcludes>org.restlet.gae:org.restlet.ext.servlet</classpathDependencyExcludes>

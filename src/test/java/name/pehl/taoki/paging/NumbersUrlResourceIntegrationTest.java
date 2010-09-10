@@ -22,7 +22,7 @@ public class NumbersUrlResourceIntegrationTest extends NumbersIntegrationTest
     public void setUp() throws Exception
     {
         super.setUp();
-        testComponent.attach("/numbers/{offset}/{pageSize}", getResourceClass());
+        component.attach("/numbers/{offset}/{pageSize}", getResourceClass());
     }
 
 

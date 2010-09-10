@@ -22,23 +22,23 @@ import org.restlet.resource.ServerResource;
 
 public abstract class NumbersIntegrationTest
 {
-    protected TestComponent testComponent = null;
+    protected TestComponent component;
 
 
     @Before
     public void setUp() throws Exception
     {
-        testComponent = new TestComponent();
-        testComponent.startWith("/numbers", getResourceClass());
+        component = new TestComponent();
+        component.startWith("/numbers", getResourceClass());
     }
 
 
     @After
     public void tearDown() throws Exception
     {
-        if (testComponent != null)
+        if (component != null)
         {
-            testComponent.stop();
+            component.stop();
         }
     }
 
