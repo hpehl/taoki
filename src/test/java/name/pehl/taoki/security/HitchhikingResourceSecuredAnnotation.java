@@ -7,8 +7,8 @@ import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 /**
- * @author $Author:$
- * @version $Date:$ $Revision:$
+ * @author $Author$
+ * @version $Date$ $Revision$
  */
 public class HitchhikingResourceSecuredAnnotation extends ServerResource
 {
@@ -16,6 +16,6 @@ public class HitchhikingResourceSecuredAnnotation extends ServerResource
     @Override
     protected Representation get() throws ResourceException
     {
-        return new StringRepresentation("thumbs up", MediaType.TEXT_PLAIN);
+        return new StringRepresentation("Don't panic", MediaType.TEXT_PLAIN);
     }
 }

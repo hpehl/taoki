@@ -17,7 +17,8 @@ import com.google.inject.Guice;
 
 /**
  * @author $Author$
- * @version $Date$ $Revision$
+ * @version $Date$ $Revision: 150
+ *          $
  */
 public abstract class HitchhikingIntegrationTest
 {
@@ -87,6 +88,6 @@ public abstract class HitchhikingIntegrationTest
     {
         ClientResource clientResource = new ClientResource(HitchhikingComponent.BASE_URL + "/hitchhiking?answer=42");
         String text = clientResource.get().getText();
-        assertEquals("thumbs up", text);
+        assertEquals("Don't panic", text);
     }
 }

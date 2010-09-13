@@ -2,7 +2,6 @@ package name.pehl.taoki.security;
 
 import static com.google.inject.matcher.Matchers.*;
 
-import org.aopalliance.intercept.MethodInvocation;
 import org.restlet.resource.ServerResource;
 
 import com.google.inject.AbstractModule;
@@ -22,18 +21,7 @@ public class HitchhikingResourceSecuredAnnotationIntegrationTest extends Hitchhi
             @Override
             protected void configure()
             {
-                SecurityInterceptor interceptor = new SecurityInterceptor()
-                {
-                    @Override
-                    public Object invoke(MethodInvocation invocation) throws Throwable
-                    {
-                        // Skip UserService check as it isn't available in
-                        // integration test
-                        ServerResource resource = (ServerResource) invocation.getThis();
-                        getSecurityCheck().check(resource.getRequest(), resource.getResponse());
-                        return invocation.proceed();
-                    }
-                };
+                SecurityInterceptor interceptor = new SecurityInterceptor();
                 requestInjection(interceptor);
                 bindInterceptor(subclassesOf(ServerResource.class), annotatedWith(Secured.class), interceptor);
                 bind(SecurityCheck.class).to(TheAnswerCheck.class);

@@ -4,14 +4,14 @@ import org.restlet.resource.Get;
 import org.restlet.resource.ServerResource;
 
 /**
- * @author $Author:$
- * @version $Date:$ $Revision:$
+ * @author $Author$
+ * @version $Date$ $Revision$
  */
 public class HitchhikingResourceGetAnnotation extends ServerResource
 {
     @Get("text")
     public String represent()
     {
-        return "thumbs up";
+        return "Don't panic";
     }
 }

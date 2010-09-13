@@ -5,11 +5,15 @@ import org.restlet.Response;
 import org.restlet.data.Cookie;
 import org.restlet.util.Series;
 
+import com.google.appengine.api.users.User;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
+
 /**
  * @author $LastChangedBy:$
  * @version $LastChangedRevision:$
  */
-public class CookieSecurityCheck implements SecurityCheck
+public class AppEngineSecurityCheck implements SecurityCheck
 {
     public static final String TOKEN_ATTRIBUTE = "token";
     public static final String APPENGINE_COOKIE = "ACSID";
@@ -18,6 +22,13 @@ public class CookieSecurityCheck implements SecurityCheck
     @Override
     public void check(Request request, Response response) throws SecurityException
     {
+        UserService userService = UserServiceFactory.getUserService();
+        User user = userService.getCurrentUser();
+        if (user == null)
+        {
+            throw new SecurityException("No user");
+        }
+
         String token = (String) request.getAttributes().get(TOKEN_ATTRIBUTE);
         if (token == null || token.length() == 0)
         {
@@ -28,7 +39,7 @@ public class CookieSecurityCheck implements SecurityCheck
         String serverName = request.getResourceRef().getHostDomain();
         if (!("localhost".equals(serverName)) && !(token.equals(sessionId)))
         {
-            throw new SecurityException("Security token invalid");
+            throw new SecurityException("Invalid security token");
         }
     }
 
