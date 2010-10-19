@@ -1,8 +1,11 @@
 package name.pehl.taoki.security;
 
 /**
- * @author $Author:$
- * @version $Date:$ $Revision:$
+ * Interface for generating security tokens.
+ * 
+ * @author $Author$
+ * @version $Date$ $Revision: 175
+ *          $
  */
 public interface SecurityTokenGenerator
 {

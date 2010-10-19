@@ -7,6 +7,10 @@ import org.restlet.resource.ServerResource;
 import com.google.inject.Inject;
 
 /**
+ * Method interceptor for {@link ServerResource}s which invokes
+ * {@link SecurityCheck#check(org.restlet.Request, org.restlet.Response)} before
+ * the actual method.
+ * 
  * @author $Author$
  * @version $Revision$
  */

@@ -9,6 +9,10 @@ import org.restlet.Response;
 import com.google.inject.Injector;
 
 /**
+ * A {@link GuiceFinder} which invokes
+ * {@link SecurityCheck#check(Request, Response)} before
+ * {@link #handle(Request, Response)}.
+ * 
  * @author $LastChangedBy:$
  * @version $LastChangedRevision:$
  */
@@ -18,8 +22,8 @@ public class SecureFinder extends GuiceFinder
     {
         super(injector, context, targetClass);
     }
-    
-    
+
+
     @Override
     public void handle(Request request, Response response)
     {

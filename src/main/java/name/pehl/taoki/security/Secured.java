@@ -6,6 +6,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * Annotation for resource methods which should be intercepted by
+ * {@link SecurityInterceptor}.
+ * 
  * @author $Author$
  * @version $Revision$
  */

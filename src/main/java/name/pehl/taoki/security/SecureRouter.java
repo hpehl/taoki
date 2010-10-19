@@ -8,6 +8,8 @@ import org.restlet.resource.Finder;
 import com.google.inject.Injector;
 
 /**
+ * A {@link GuiceRouter} which uses a {@link SecureFinder}.
+ * 
  * @author $LastChangedBy:$
  * @version $LastChangedRevision:$
  */

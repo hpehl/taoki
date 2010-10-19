@@ -5,8 +5,12 @@ import java.math.BigInteger;
 import com.google.inject.Inject;
 
 /**
- * @author $Author:$
- * @version $Date:$ $Revision:$
+ * A security token generator which used {@link SecureRandomSingleton} to
+ * generate the token.
+ * 
+ * @author $Author$
+ * @version $Date$ $Revision: 175
+ *          $
  */
 public class RandomSecurityTokenGenerator implements SecurityTokenGenerator
 {
