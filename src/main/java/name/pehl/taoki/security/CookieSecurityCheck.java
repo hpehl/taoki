@@ -5,6 +5,8 @@ import org.restlet.Response;
 import org.restlet.data.Cookie;
 import org.restlet.util.Series;
 
+import com.google.inject.Inject;
+
 /**
  * Security check which reads the security token using a configured
  * {@link SecurityTokenReader} and compares it against the security cookie
@@ -19,6 +21,7 @@ public class CookieSecurityCheck implements SecurityCheck
     private final SecurityTokenReader securityTokenReader;
 
 
+    @Inject
     public CookieSecurityCheck(@SecurityToken final String name, final SecurityTokenReader securityTokenReader)
     {
         this.name = name;
@@ -33,7 +36,7 @@ public class CookieSecurityCheck implements SecurityCheck
         String cookie = readCookie(request);
 
         String serverName = request.getResourceRef().getHostDomain();
-        if (!("localhost".equals(serverName)) && !(token.equals(cookie)))
+        if (!"localhost".equals(serverName) && !token.equals(cookie))
         {
             throw new SecurityException("Invalid security token");
         }

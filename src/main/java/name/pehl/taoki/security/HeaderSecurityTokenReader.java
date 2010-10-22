@@ -6,17 +6,21 @@ import org.restlet.data.Parameter;
 import org.restlet.engine.http.header.HeaderConstants;
 import org.restlet.util.Series;
 
+import com.google.inject.Inject;
+
 /**
  * Reads the security token from a request header.
  * 
- * @author $Author:$
- * @version $Date:$ $Revision:$
+ * @author $Author$
+ * @version $Date$ $Revision: 180
+ *          $
  */
 public class HeaderSecurityTokenReader implements SecurityTokenReader
 {
     private final String name;
 
 
+    @Inject
     public HeaderSecurityTokenReader(@SecurityToken final String name)
     {
         this.name = name;
