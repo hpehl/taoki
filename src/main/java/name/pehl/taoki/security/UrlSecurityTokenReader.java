@@ -3,17 +3,21 @@ package name.pehl.taoki.security;
 import org.restlet.Request;
 import org.restlet.Response;
 
+import com.google.inject.Inject;
+
 /**
  * Reads the security token as template parameter from the url.
  * 
- * @author $Author:$
- * @version $Date:$ $Revision:$
+ * @author $Author$
+ * @version $Date$ $Revision: 180
+ *          $
  */
 public class UrlSecurityTokenReader implements SecurityTokenReader
 {
     private final String name;
 
 
+    @Inject
     public UrlSecurityTokenReader(@SecurityToken final String name)
     {
         this.name = name;

@@ -34,9 +34,7 @@ public class CookieSecurityCheck implements SecurityCheck
     {
         String token = securityTokenReader.readToken(request, response);
         String cookie = readCookie(request);
-
-        String serverName = request.getResourceRef().getHostDomain();
-        if (!"localhost".equals(serverName) && !token.equals(cookie))
+        if (!(token.equals(cookie)))
         {
             throw new SecurityException("Invalid security token");
         }
