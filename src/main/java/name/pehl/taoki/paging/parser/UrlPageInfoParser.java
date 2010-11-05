@@ -3,8 +3,6 @@ package name.pehl.taoki.paging.parser;
 import java.util.Map;
 
 import name.pehl.taoki.paging.PageInfo;
-import name.pehl.taoki.paging.SortDir;
-import name.pehl.taoki.paging.SortInfo;
 
 /**
  * {@link PageInfoParser} expecting the paging info as {@link Map} with the
@@ -12,16 +10,13 @@ import name.pehl.taoki.paging.SortInfo;
  * <ul>
  * <li>offset
  * <li>pageSize
- * <li>sortField (optional)
- * <li>sortDir (optional)
  * </ul>
  * This parser works hand in hand with the
  * {@link name.pehl.taoki.paging.PagingUrlResource}.
  * 
  * @see name.pehl.taoki.paging.PagingUrlResource
  * @author $Author$
- * @version $Date$ $Revision: 98
- *          $
+ * @version $Date$ $Revision$
  */
 public class UrlPageInfoParser extends AbstractPageInfoParser
 {
@@ -45,13 +40,9 @@ public class UrlPageInfoParser extends AbstractPageInfoParser
         Map<String, Object> attributes = (Map<String, Object>) input;
         String offset = (String) attributes.get(OFFSET);
         String pageSize = (String) attributes.get(PAGE_SIZE);
-        String sortField = (String) attributes.get(SORT_FIELD);
-        String sortDir = (String) attributes.get(SORT_DIR);
 
         int offsetValue = convertInt(offset, "Paging info contains the invalid offset: \"%s\"", offset);
         int pageSizeValue = convertInt(pageSize, "Paging info contains the invalid page size: \"%s\"", pageSize);
-        SortDir sortDirValue = convertSortDir(sortDir);
-
-        return new PageInfo(offsetValue, pageSizeValue, new SortInfo(sortField, sortDirValue));
+        return new PageInfo(offsetValue, pageSizeValue);
     }
 }

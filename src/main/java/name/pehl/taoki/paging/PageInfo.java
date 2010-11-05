@@ -8,7 +8,6 @@ import java.io.Serializable;
  * <ul>
  * <li>offset
  * <li>page size
- * <li>{@linkplain SortInfo sortInfo}
  * </ul>
  * 
  * @author $Author: lfstad-pehl $
@@ -30,7 +29,6 @@ public class PageInfo implements Serializable
 
     private final int offset;
     private final int pageSize;
-    private final SortInfo sortInfo;
 
 
     // ----------------------------------------------------------- constructors
@@ -49,27 +47,6 @@ public class PageInfo implements Serializable
      *            {@value #MAX_PAGE_SIZE}.
      */
     public PageInfo(int offset, int pageSize)
-    {
-        this(offset, pageSize, new SortInfo());
-    }
-
-
-    /**
-     * Construct a new instance using the specified offset, page size and sort
-     * info.
-     * 
-     * @param offset
-     *            The offset. If &lt; {@value #MIN_OFFSET}, offset is set to
-     *            {@value #MIN_OFFSET}. If &gt; {@value #MAX_OFFSET}, offset is
-     *            set to {@value #MAX_OFFSET}.
-     * @param pageSize
-     *            The page size. If &lt; {@value #MIN_PAGE_SIZE}, page size is
-     *            set to {@value #MIN_PAGE_SIZE}. If &gt;
-     *            {@value #MAX_PAGE_SIZE}, page size is set to
-     *            {@value #MAX_PAGE_SIZE}.
-     * @param sortInfo
-     */
-    public PageInfo(int offset, int pageSize, SortInfo sortInfo)
     {
         super();
         if (offset < MIN_OFFSET)
@@ -96,7 +73,6 @@ public class PageInfo implements Serializable
         {
             this.pageSize = pageSize;
         }
-        this.sortInfo = sortInfo;
     }
 
 
@@ -117,7 +93,6 @@ public class PageInfo implements Serializable
         int result = 1;
         result = prime * result + offset;
         result = prime * result + pageSize;
-        result = prime * result + ((sortInfo == null) ? 0 : sortInfo.hashCode());
         return result;
     }
 
@@ -156,24 +131,13 @@ public class PageInfo implements Serializable
         {
             return false;
         }
-        if (sortInfo == null)
-        {
-            if (other.sortInfo != null)
-            {
-                return false;
-            }
-        }
-        else if (!sortInfo.equals(other.sortInfo))
-        {
-            return false;
-        }
         return true;
     }
 
 
     /**
      * Returns a string representation in the form
-     * <code>PageInfo[{@link #getOffset()}/{@link #getPageSize()}/{@link #getSortInfo()}]</code>
+     * <code>PageInfo[{@link #getOffset()}/{@link #getPageSize()}]</code>
      * 
      * @return
      * @see java.lang.Object#toString()
@@ -181,8 +145,8 @@ public class PageInfo implements Serializable
     @Override
     public String toString()
     {
-        return new StringBuilder("PageInfo [").append(offset).append("/").append(pageSize).append("/").append(sortInfo)
-                .append("]").toString();
+        return new StringBuilder("PageInfo [").append(offset).append("/").append(pageSize).append("/").append("]")
+                .toString();
     }
 
 
@@ -228,14 +192,5 @@ public class PageInfo implements Serializable
     public int getPageSize()
     {
         return pageSize;
-    }
-
-
-    /**
-     * @return the sortInfo.
-     */
-    public SortInfo getSortInfo()
-    {
-        return sortInfo;
     }
 }

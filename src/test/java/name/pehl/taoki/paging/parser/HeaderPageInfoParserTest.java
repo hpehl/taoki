@@ -2,17 +2,13 @@ package name.pehl.taoki.paging.parser;
 
 import static org.junit.Assert.*;
 import name.pehl.taoki.paging.PageInfo;
-import name.pehl.taoki.paging.SortDir;
-import name.pehl.taoki.paging.parser.HeaderPageInfoParser;
-import name.pehl.taoki.paging.parser.PageInfoParseException;
 
 import org.junit.Before;
 import org.junit.Test;
 
 /**
  * @author $Author$
- * @version $Date$ $Revision: 94
- *          $
+ * @version $Date$ $Revision$
  */
 public class HeaderPageInfoParserTest extends AbstractPageInfoParserTest
 {
@@ -94,17 +90,5 @@ public class HeaderPageInfoParserTest extends AbstractPageInfoParserTest
 
         pageInfo = underTest.parse("items=0-9");
         assertPageInfo(pageInfo, 0, 10);
-
-        pageInfo = underTest.parse("items=0-9;foo");
-        assertPageInfo(pageInfo, 0, 10, FOO);
-
-        pageInfo = underTest.parse("items=0-9;foo:asc");
-        assertPageInfo(pageInfo, 0, 10, FOO, SortDir.ASC);
-
-        pageInfo = underTest.parse("items=0-9;foo:desc");
-        assertPageInfo(pageInfo, 0, 10, FOO, SortDir.DESC);
-
-        pageInfo = underTest.parse("items=0-9;foo:none");
-        assertPageInfo(pageInfo, 0, 10, FOO, SortDir.NONE);
     }
 }

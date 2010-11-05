@@ -2,10 +2,6 @@ package name.pehl.taoki.paging.parser;
 
 import static org.junit.Assert.*;
 import name.pehl.taoki.paging.PageInfo;
-import name.pehl.taoki.paging.SortDir;
-import name.pehl.taoki.paging.parser.PageInfoParseException;
-import name.pehl.taoki.paging.parser.PageInfoParser;
-import name.pehl.taoki.paging.parser.QueryPageInfoParser;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +9,8 @@ import org.restlet.data.Form;
 
 /**
  * @author $Author$
- * @version $Date$ $Revision$
+ * @version $Date$ $Revision: 145
+ *          $
  */
 public class QueryPageInfoParserTest extends AbstractPageInfoParserTest
 {
@@ -36,16 +33,6 @@ public class QueryPageInfoParserTest extends AbstractPageInfoParserTest
         {
             // nop
         }
-
-        try
-        {
-            underTest.parse(formFor(0, 10, FOO, "meep"));
-            fail(PAGE_INFO_PARSE_EXCEPTION_EXPECTED);
-        }
-        catch (PageInfoParseException e)
-        {
-            // nop
-        }
     }
 
 
@@ -56,18 +43,6 @@ public class QueryPageInfoParserTest extends AbstractPageInfoParserTest
 
         pageInfo = underTest.parse(formFor(0, 10));
         assertPageInfo(pageInfo, 0, 10);
-
-        pageInfo = underTest.parse(formFor(0, 10, FOO));
-        assertPageInfo(pageInfo, 0, 10, FOO);
-
-        pageInfo = underTest.parse(formFor(0, 10, FOO, SortDir.ASC.name()));
-        assertPageInfo(pageInfo, 0, 10, FOO, SortDir.ASC);
-
-        pageInfo = underTest.parse(formFor(0, 10, FOO, SortDir.DESC.name()));
-        assertPageInfo(pageInfo, 0, 10, FOO, SortDir.DESC);
-
-        pageInfo = underTest.parse(formFor(0, 10, FOO, SortDir.NONE.name()));
-        assertPageInfo(pageInfo, 0, 10, FOO, SortDir.NONE);
     }
 
 
@@ -76,22 +51,6 @@ public class QueryPageInfoParserTest extends AbstractPageInfoParserTest
         Form form = new Form();
         form.add(PageInfoParser.OFFSET, String.valueOf(offset));
         form.add(PageInfoParser.PAGE_SIZE, String.valueOf(pageSize));
-        return form;
-    }
-
-
-    private Form formFor(int offset, int pageSize, String sortField)
-    {
-        Form form = formFor(offset, pageSize);
-        form.add(PageInfoParser.SORT_FIELD, sortField);
-        return form;
-    }
-
-
-    private Form formFor(int offset, int pageSize, String sortField, String sortDir)
-    {
-        Form form = formFor(offset, pageSize, sortField);
-        form.add(PageInfoParser.SORT_DIR, sortDir);
         return form;
     }
 }

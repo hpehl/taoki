@@ -1,8 +1,6 @@
 package name.pehl.taoki.paging.parser;
 
 import name.pehl.taoki.paging.PageInfo;
-import name.pehl.taoki.paging.SortDir;
-import name.pehl.taoki.paging.SortInfo;
 
 import org.restlet.data.Form;
 
@@ -12,15 +10,14 @@ import org.restlet.data.Form;
  * <ul>
  * <li>offset
  * <li>pageSize
- * <li>sortField (optional)
- * <li>sortDir (optional)
  * </ul>
  * This parser works hand in hand with the
  * {@link name.pehl.taoki.paging.PagingQueryResource}.
  * 
  * @see name.pehl.taoki.paging.PagingQueryResource
  * @author $Author$
- * @version $Date$ $Revision$
+ * @version $Date$ $Revision: 145
+ *          $
  */
 public class QueryPageInfoParser extends AbstractPageInfoParser
 {
@@ -43,13 +40,9 @@ public class QueryPageInfoParser extends AbstractPageInfoParser
         Form form = (Form) input;
         String offset = form.getFirstValue(OFFSET);
         String pageSize = form.getFirstValue(PAGE_SIZE);
-        String sortField = form.getFirstValue(SORT_FIELD);
-        String sortDir = form.getFirstValue(SORT_DIR);
 
         int offsetValue = convertInt(offset, "Paging info contains the invalid offset: \"%s\"", offset);
         int pageSizeValue = convertInt(pageSize, "Paging info contains the invalid page size: \"%s\"", pageSize);
-        SortDir sortDirValue = convertSortDir(sortDir);
-
-        return new PageInfo(offsetValue, pageSizeValue, new SortInfo(sortField, sortDirValue));
+        return new PageInfo(offsetValue, pageSizeValue);
     }
 }

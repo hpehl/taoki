@@ -1,12 +1,12 @@
 package name.pehl.taoki.paging.parser;
 
-import name.pehl.taoki.paging.SortDir;
 
 /**
  * Contains common functionality for all {@link PageInfoParser} implementations.
  * 
  * @author $Author$
- * @version $Date$ $Revision$
+ * @version $Date$ $Revision: 145
+ *          $
  */
 public abstract class AbstractPageInfoParser implements PageInfoParser
 {
@@ -43,38 +43,6 @@ public abstract class AbstractPageInfoParser implements PageInfoParser
         catch (NumberFormatException e)
         {
             String error = String.format(message, params);
-            throw new PageInfoParseException(error);
-        }
-    }
-
-
-    /**
-     * Converts the specifed string to a {@link SortDir} constant.
-     * 
-     * @param input
-     *            the {@link SortDir} constant to convert (case insensitiv!)
-     * @return {@link SortDir#NONE} if <code>input</code> is <code>null</code>,
-     *         the relevant {@link SortDir} constant otherwise.
-     * @throws PageInfoParseException
-     *             if <code>input</code> is not <code>null</code>, but invalid.
-     */
-    protected SortDir convertSortDir(String input) throws PageInfoParseException
-    {
-        if (input == null)
-        {
-            return SortDir.NONE;
-        }
-
-        try
-        {
-            SortDir result = SortDir.valueOf(input.toUpperCase());
-            return result;
-        }
-        catch (IllegalArgumentException iae)
-        {
-            String error = String
-                    .format("Page info contains the invalid sort direction \"%s\". Please specify one of the following constants: %s",
-                            input, SortDir.values());
             throw new PageInfoParseException(error);
         }
     }

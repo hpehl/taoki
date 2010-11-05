@@ -14,8 +14,6 @@ public interface PageInfoParser
 {
     String OFFSET = "offset";
     String PAGE_SIZE = "pageSize";
-    String SORT_FIELD = "sortField";
-    String SORT_DIR = "sortDir";
 
 
     /**

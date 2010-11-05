@@ -2,15 +2,13 @@ package name.pehl.taoki.paging.parser;
 
 import static org.junit.Assert.*;
 import name.pehl.taoki.paging.PageInfo;
-import name.pehl.taoki.paging.SortDir;
-import name.pehl.taoki.paging.parser.PageInfoParseException;
-import name.pehl.taoki.paging.parser.PageInfoParser;
 
 import org.junit.Test;
 
 /**
  * @author $Author$
- * @version $Date$ $Revision$
+ * @version $Date$ $Revision: 145
+ *          $
  */
 public abstract class AbstractPageInfoParserTest
 {
@@ -38,23 +36,8 @@ public abstract class AbstractPageInfoParserTest
 
     protected void assertPageInfo(PageInfo pageInfo, int offset, int pageSize)
     {
-        assertPageInfo(pageInfo, offset, pageSize, null);
-    }
-
-
-    protected void assertPageInfo(PageInfo pageInfo, int offset, int pageSize, String sortField)
-    {
-        assertPageInfo(pageInfo, offset, pageSize, sortField, SortDir.NONE);
-    }
-
-
-    protected void assertPageInfo(PageInfo pageInfo, int offset, int pageSize, String sortField, SortDir sortDir)
-    {
         assertNotNull(pageInfo);
-        assertNotNull(pageInfo.getSortInfo());
         assertEquals(offset, pageInfo.getOffset());
         assertEquals(pageSize, pageInfo.getPageSize());
-        assertEquals(sortField, pageInfo.getSortInfo().getSortField());
-        assertEquals(sortDir, pageInfo.getSortInfo().getSortDir());
     }
 }
