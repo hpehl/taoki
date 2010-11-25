@@ -1,6 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <!-- $LastChangedBy: harald.pehl $LastChangedRevision: 65 $ -->
+    <!-- $LastChangedBy: harald.pehl $LastChangedRevision: 1418 $ -->
+
+
+    <!-- The super pom contains most of the configuration -->
+    <parent>
+        <groupId>name.pehl</groupId>
+        <artifactId>superpom</artifactId>
+        <version>1</version>
+    </parent>
 
 
     <modelVersion>4.0.0</modelVersion>
@@ -10,34 +18,6 @@
     <name>Taoki</name>
     <description>Small layer on top of the GWT Restlet framework</description>
     <url>http://code.google.com/p/taoki/</url>
-    <organization>
-        <name>Harald Pehl</name>
-        <url>http://harald.pehl.name</url>
-    </organization>
-
-
-    <licenses>
-        <license>
-            <name>Apache 2</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
-            <distribution>repo</distribution>
-            <comments>A business-friendly OSS license</comments>
-        </license>
-    </licenses>
-
-
-    <developers>
-        <developer>
-            <id>harald.pehl</id>
-            <name>Harald Pehl</name>
-            <email>harald.pehl@googlemail.com</email>
-            <roles>
-                <role>architect</role>
-                <role>developer</role>
-            </roles>
-            <timezone>+1</timezone>
-        </developer>
-    </developers>
 
 
     <scm>
@@ -46,8 +26,6 @@
         <tag>HEAD</tag>
         <url>http://taoki.googlecode.com/svn/trunk</url>
     </scm>
-
-
     <distributionManagement>
         <repository>
             <id>taoki-repo</id>
@@ -60,94 +38,61 @@
             <url>svn:https://taoki.googlecode.com/svn/site</url>
         </site>
     </distributionManagement>
-
-
     <repositories>
+        <repository>
+            <id>pehl-parent</id>
+            <url>http://pehl-parent.googlecode.com/svn/repository</url>
+        </repository>
         <repository>
             <id>taoki</id>
             <url>http://taoki.googlecode.com/svn/repository</url>
         </repository>
-        <repository>
-            <id>restlet</id>
-            <url>http://maven.restlet.org</url>
-        </repository>
-        <repository>
-            <id>maven2-repository.dev.java.net</id>
-            <url>http://download.java.net/maven/2/</url>
-        </repository>
     </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>maven2-repository.dev.java.net</id>
-            <url>http://download.java.net/maven/2/</url>
-        </pluginRepository>
-    </pluginRepositories>
-
-
-    <properties>
-        <restlet.version>2.0.1</restlet.version>
-        <junit.version>4.8.1</junit.version>
-        <easymock.version>3.0</easymock.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
 
 
     <dependencies>
-        <!-- Guice -->
         <dependency>
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
-            <version>2.0</version>
         </dependency>
         <dependency>
             <groupId>aopalliance</groupId>
             <artifactId>aopalliance</artifactId>
-            <version>1.0</version>
         </dependency>
-
-        <!-- Restlet -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.restlet.gae</groupId>
             <artifactId>org.restlet</artifactId>
-            <version>${restlet.version}</version>
         </dependency>
         <dependency>
             <groupId>org.restlet.gae</groupId>
             <artifactId>org.restlet.ext.servlet</artifactId>
             <version>${restlet.version}</version>
         </dependency>
-
-        <!-- Servlet -->
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- Test -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
+            <groupId>org.restlet.gae</groupId>
+            <artifactId>org.restlet.ext.json</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.easymock</groupId>
-            <artifactId>easymock</artifactId>
-            <version>${easymock.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.easymock</groupId>
-            <artifactId>easymockclassextension</artifactId>
-            <version>${easymock.version}</version>
+            <groupId>org.restlet.gae</groupId>
+            <artifactId>org.restlet.lib.org.json</artifactId>
+            <version>2.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.restlet.jse</groupId>
-            <artifactId>org.restlet.ext.json</artifactId>
+            <artifactId>org.restlet.ext.simple</artifactId>
             <version>${restlet.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.restlet.jse</groupId>
+            <artifactId>org.restlet.lib.org.simpleframework</artifactId>
+            <version>4.1.13</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -157,24 +102,7 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <configuration>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.6</version>
                 <configuration>
                     <excludes>
                         <exclude>**/TestComponent.java</exclude>
@@ -185,83 +113,6 @@
                     </classpathDependencyExcludes>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-eclipse-plugin</artifactId>
-                <configuration>
-                    <downloadSources>true</downloadSources>
-                    <downloadJavadocs>true</downloadJavadocs>
-                    <additionalConfig>
-                        <file>
-                            <name>.settings/org.eclipse.core.resources.prefs</name>
-                            <content>
-                                <![CDATA[
-eclipse.preferences.version=1
-encoding/<project>=${project.build.sourceEncoding}]]>
-                            </content>
-                        </file>
-                    </additionalConfig>
-                </configuration>
-            </plugin>
         </plugins>
-
-
-        <extensions>
-            <extension>
-                <groupId>org.jvnet.wagon-svn</groupId>
-                <artifactId>wagon-svn</artifactId>
-            </extension>
-        </extensions>
     </build>
-
-
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-                <reportSets>
-                    <reportSet>
-                        <reports>
-                            <report>dependencies</report>
-                            <report>index</report>
-                            <report>license</report>
-                            <report>project-team</report>
-                            <report>scm</report>
-                            <report>summary</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jxr-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <configuration>
-                    <doctitle>${project.name} API ${project.version}</doctitle>
-                    <windowtitle>${project.name} API ${project.version}</windowtitle>
-                    <stylesheet>maven</stylesheet>
-                    <links>
-                        <link>http://google-web-toolkit.googlecode.com/svn/javadoc/2.0/</link>
-                    </links>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-report-plugin</artifactId>
-                <!-- the Maven Surefire Report plugin has a bug where it re-runs the tests, this is needed to avoid that 
-                    - http://jira.codehaus.org/browse/SUREFIRE-257 -->
-                <reportSets>
-                    <reportSet>
-                        <reports>
-                            <report>report-only</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
-        </plugins>
-    </reporting>
 </project>
