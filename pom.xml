@@ -14,7 +14,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>name.pehl</groupId>
     <artifactId>taoki</artifactId>
-    <version>0.3</version>
+    <version>0.3.0</version>
     <name>Taoki</name>
     <description>Small layer on top of the GWT Restlet framework</description>
     <url>http://code.google.com/p/taoki/</url>
