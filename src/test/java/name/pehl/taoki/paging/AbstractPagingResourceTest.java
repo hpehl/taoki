@@ -1,9 +1,7 @@
 package name.pehl.taoki.paging;
 
 import static junit.framework.Assert.*;
-import static org.easymock.EasyMock.*;
-import name.pehl.taoki.paging.AbstractPagingResource;
-import name.pehl.taoki.paging.PageInfo;
+import static org.mockito.Mockito.*;
 import name.pehl.taoki.paging.parser.PageInfoParseException;
 import name.pehl.taoki.paging.parser.PageInfoParser;
 
@@ -12,8 +10,7 @@ import org.restlet.Request;
 
 /**
  * @author $Author$
- * @version $Date$ $Revision: 99
- *          $
+ * @version $Date$ $Revision$
  */
 public class AbstractPagingResourceTest
 {
@@ -29,24 +26,22 @@ public class AbstractPagingResourceTest
     @Test
     public void getPageInfoWithNullInput() throws PageInfoParseException
     {
-        PageInfoParser pip = createStrictMock(PageInfoParser.class);
-        expect(pip.parse(null)).andReturn(null);
-        replay(pip);
+        PageInfoParser pip = mock(PageInfoParser.class);
+        when(pip.parse(null)).thenReturn(null);
 
         AbstractPagingResource underTest = new NullPagingResource(pip);
         PageInfo pageInfo = underTest.getPageInfo();
         assertNull(pageInfo);
-        verify(pip);
+        verify(pip).parse(null);
     }
 
 
     @Test
     public void getPageInfoWithInvalidInput() throws PageInfoParseException
     {
-        PageInfoParser pip = createStrictMock(PageInfoParser.class);
-        expect(pip.parse(FooPagingResource.FOO)).andThrow(
+        PageInfoParser pip = mock(PageInfoParser.class);
+        when(pip.parse(FooPagingResource.FOO)).thenThrow(
                 new PageInfoParseException("Expected exception from junit test method"));
-        replay(pip);
 
         AbstractPagingResource underTest = new FooPagingResource(pip);
         PageInfo pageInfo = underTest.getPageInfo();
@@ -59,14 +54,13 @@ public class AbstractPagingResourceTest
     public void getPageInfo() throws PageInfoParseException
     {
         PageInfo pageInfoFixture = new PageInfo(1, 2);
-        PageInfoParser pip = createStrictMock(PageInfoParser.class);
-        expect(pip.parse(FooPagingResource.FOO)).andReturn(pageInfoFixture);
-        replay(pip);
+        PageInfoParser pip = mock(PageInfoParser.class);
+        when(pip.parse(FooPagingResource.FOO)).thenReturn(pageInfoFixture);
 
         AbstractPagingResource underTest = new FooPagingResource(pip);
         PageInfo pageInfo = underTest.getPageInfo();
         assertEquals(pageInfoFixture, pageInfo);
-        verify(pip);
+        verify(pip).parse(FooPagingResource.FOO);
     }
 
     // ---------------------------------------------------------- inner classes
