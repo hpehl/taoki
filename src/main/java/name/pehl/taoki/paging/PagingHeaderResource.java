@@ -4,7 +4,7 @@ import name.pehl.taoki.paging.parser.HeaderPageInfoParser;
 
 import org.restlet.Request;
 import org.restlet.data.Parameter;
-import org.restlet.engine.http.header.HeaderConstants;
+import org.restlet.engine.header.HeaderConstants;
 import org.restlet.util.Series;
 
 /**

@@ -1,6 +1,7 @@
 package name.pehl.taoki.paging;
 
-import static junit.framework.Assert.*;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNull;
 import static org.mockito.Mockito.*;
 import name.pehl.taoki.paging.parser.PageInfoParseException;
 import name.pehl.taoki.paging.parser.PageInfoParser;
@@ -10,7 +11,8 @@ import org.restlet.Request;
 
 /**
  * @author $Author$
- * @version $Date$ $Revision$
+ * @version $Date$ $Revision: 209
+ *          $
  */
 public class AbstractPagingResourceTest
 {
@@ -46,7 +48,6 @@ public class AbstractPagingResourceTest
         AbstractPagingResource underTest = new FooPagingResource(pip);
         PageInfo pageInfo = underTest.getPageInfo();
         assertNull(pageInfo);
-        verify(pip);
     }
 
 

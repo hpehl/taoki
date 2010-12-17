@@ -5,6 +5,7 @@ import name.pehl.taoki.GuiceFinder;
 import org.restlet.Context;
 import org.restlet.Request;
 import org.restlet.Response;
+import org.restlet.resource.ServerResource;
 
 import com.google.inject.Injector;
 
@@ -18,7 +19,7 @@ import com.google.inject.Injector;
  */
 public class SecureFinder extends GuiceFinder
 {
-    public SecureFinder(Injector injector, Context context, Class<?> targetClass)
+    public SecureFinder(Injector injector, Context context, Class<? extends ServerResource> targetClass)
     {
         super(injector, context, targetClass);
     }

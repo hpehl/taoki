@@ -1,13 +1,10 @@
 package name.pehl.taoki.paging;
 
-import static name.pehl.taoki.paging.NumberFactory.*;
-import static name.pehl.taoki.paging.PageResult.*;
+import static name.pehl.taoki.paging.NumberFactory.numbers;
+import static name.pehl.taoki.paging.PageResult.MAX_TOTAL;
 import static org.junit.Assert.*;
 
 import java.util.Collections;
-
-import name.pehl.taoki.paging.PageInfo;
-import name.pehl.taoki.paging.PageResult;
 
 import org.junit.Test;
 

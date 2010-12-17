@@ -3,9 +3,6 @@ package name.pehl.taoki.paging;
 import java.io.StringWriter;
 import java.util.List;
 
-import name.pehl.taoki.paging.PageInfo;
-import name.pehl.taoki.paging.PageResult;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONWriter;

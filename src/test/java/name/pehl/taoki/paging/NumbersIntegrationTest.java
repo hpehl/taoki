@@ -1,6 +1,7 @@
 package name.pehl.taoki.paging;
 
-import static junit.framework.Assert.*;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
 
 import java.io.IOException;
 

@@ -1,8 +1,8 @@
 package name.pehl.taoki.paging;
 
-import static name.pehl.taoki.TestComponent.*;
-
 import java.io.IOException;
+
+import name.pehl.taoki.TestComponent;
 
 import org.json.JSONException;
 import org.junit.Test;
@@ -27,7 +27,7 @@ public class NumbersQueryResourceIntegrationTest extends NumbersIntegrationTest
     @Test
     public void testNoPaging() throws IOException, ResourceException, JSONException
     {
-        ClientResource resource = new ClientResource(BASE_URL + "/numbers");
+        ClientResource resource = new ClientResource(TestComponent.getBaseUrl() + "/numbers");
         assertError(resource);
     }
 
@@ -35,7 +35,7 @@ public class NumbersQueryResourceIntegrationTest extends NumbersIntegrationTest
     @Test
     public void testInvalidPaging() throws IOException, ResourceException, JSONException
     {
-        ClientResource resource = new ClientResource(BASE_URL + "/numbers?foo");
+        ClientResource resource = new ClientResource(TestComponent.getBaseUrl() + "/numbers?foo");
         assertError(resource);
     }
 
@@ -43,7 +43,7 @@ public class NumbersQueryResourceIntegrationTest extends NumbersIntegrationTest
     @Test
     public void testPaging() throws IOException, ResourceException, JSONException
     {
-        ClientResource resource = new ClientResource(BASE_URL + "/numbers?offset=5&pageSize=19");
+        ClientResource resource = new ClientResource(TestComponent.getBaseUrl() + "/numbers?offset=5&pageSize=19");
         assertJson(resource);
     }
 }

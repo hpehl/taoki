@@ -13,10 +13,8 @@ import org.restlet.routing.Router;
  */
 public class TestComponent extends Component
 {
-    public static final int DEFAULT_PORT = 1337;
-    public static final String PORT_SYSTEM_PROPERTY = "taoki.test.port";
-    public static int PORT = getTestPort();
-    public static final String BASE_URL = "http://localhost:" + PORT;
+    public static final int STARTING_PORT = 10000;
+    private static int effectivePort = STARTING_PORT;
 
     protected Application application;
     protected Router router;
@@ -25,7 +23,8 @@ public class TestComponent extends Component
     public TestComponent()
     {
         super();
-        getServers().add(Protocol.HTTP, PORT);
+        effectivePort++;
+        getServers().add(Protocol.HTTP, effectivePort);
     }
 
 
@@ -58,19 +57,8 @@ public class TestComponent extends Component
     }
 
 
-    /**
-     * Returns the port for the standalone server. The port defaults to
-     * {@value #DEFAULT_PORT} and can be overwritten by the system property
-     * {@value #PORT_SYSTEM_PROPERTY}.
-     * 
-     * @return
-     */
-    private static int getTestPort()
+    public static String getBaseUrl()
     {
-        if (System.getProperties().containsKey(PORT_SYSTEM_PROPERTY))
-        {
-            return Integer.parseInt(System.getProperty(PORT_SYSTEM_PROPERTY));
-        }
-        return DEFAULT_PORT;
+        return "http://localhost:" + effectivePort;
     }
 }

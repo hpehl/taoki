@@ -1,6 +1,6 @@
 package name.pehl.taoki.paging;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 

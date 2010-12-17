@@ -1,8 +1,11 @@
 package name.pehl.taoki.security;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.io.IOException;
+
+import name.pehl.taoki.TestComponent;
 
 import org.junit.After;
 import org.junit.Before;
@@ -33,12 +36,6 @@ public abstract class HitchhikingIntegrationTest
     }
 
 
-    protected abstract AbstractModule getModule();
-
-
-    protected abstract Class<? extends ServerResource> getResourceClass();
-
-
     @After
     public void tearDown() throws Exception
     {
@@ -49,10 +46,16 @@ public abstract class HitchhikingIntegrationTest
     }
 
 
+    protected abstract AbstractModule getModule();
+
+
+    protected abstract Class<? extends ServerResource> getResourceClass();
+
+
     @Test
     public void getNoAnswer() throws ResourceException, IOException
     {
-        ClientResource clientResource = new ClientResource(HitchhikingComponent.BASE_URL + "/hitchhiking");
+        ClientResource clientResource = new ClientResource(TestComponent.getBaseUrl() + "/hitchhiking");
         try
         {
             clientResource.get();
@@ -69,7 +72,7 @@ public abstract class HitchhikingIntegrationTest
     @Test
     public void getWrongAnswer() throws ResourceException, IOException
     {
-        ClientResource clientResource = new ClientResource(HitchhikingComponent.BASE_URL + "/hitchhiking?answer=41");
+        ClientResource clientResource = new ClientResource(TestComponent.getBaseUrl() + "/hitchhiking?answer=41");
         try
         {
             clientResource.get();
@@ -86,7 +89,7 @@ public abstract class HitchhikingIntegrationTest
     @Test
     public void getAnswer() throws ResourceException, IOException
     {
-        ClientResource clientResource = new ClientResource(HitchhikingComponent.BASE_URL + "/hitchhiking?answer=42");
+        ClientResource clientResource = new ClientResource(TestComponent.getBaseUrl() + "/hitchhiking?answer=42");
         String text = clientResource.get().getText();
         assertEquals("Don't panic", text);
     }

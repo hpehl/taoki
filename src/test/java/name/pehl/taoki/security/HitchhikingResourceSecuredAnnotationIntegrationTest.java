@@ -1,6 +1,7 @@
 package name.pehl.taoki.security;
 
-import static com.google.inject.matcher.Matchers.*;
+import static com.google.inject.matcher.Matchers.annotatedWith;
+import static com.google.inject.matcher.Matchers.subclassesOf;
 
 import org.restlet.resource.ServerResource;
 

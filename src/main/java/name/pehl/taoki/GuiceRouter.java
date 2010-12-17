@@ -2,6 +2,7 @@ package name.pehl.taoki;
 
 import org.restlet.Context;
 import org.restlet.resource.Finder;
+import org.restlet.resource.ServerResource;
 import org.restlet.routing.Router;
 
 import com.google.inject.Injector;
@@ -47,7 +48,7 @@ public abstract class GuiceRouter extends Router
 
 
     @Override
-    public Finder createFinder(Class<?> targetClass)
+    public Finder createFinder(Class<? extends ServerResource> targetClass)
     {
         return new GuiceFinder(injector, getContext(), targetClass);
     }

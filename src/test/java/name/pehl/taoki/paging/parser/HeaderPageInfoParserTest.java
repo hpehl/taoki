@@ -1,6 +1,6 @@
 package name.pehl.taoki.paging.parser;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 import name.pehl.taoki.paging.PageInfo;
 
 import org.junit.Before;

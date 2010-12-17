@@ -1,8 +1,6 @@
 package name.pehl.taoki.paging;
 
-import static name.pehl.taoki.paging.NumbersResourceHelper.*;
-
-import name.pehl.taoki.paging.PagingQueryResource;
+import static name.pehl.taoki.paging.NumbersResourceHelper.numbersAsJson;
 
 import org.json.JSONException;
 import org.restlet.resource.Get;

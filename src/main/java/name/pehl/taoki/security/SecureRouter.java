@@ -4,6 +4,7 @@ import name.pehl.taoki.GuiceRouter;
 
 import org.restlet.Context;
 import org.restlet.resource.Finder;
+import org.restlet.resource.ServerResource;
 
 import com.google.inject.Injector;
 
@@ -22,7 +23,7 @@ public abstract class SecureRouter extends GuiceRouter
 
 
     @Override
-    public Finder createFinder(Class<?> targetClass)
+    public Finder createFinder(Class<? extends ServerResource> targetClass)
     {
         return new SecureFinder(injector, getContext(), targetClass);
     }
