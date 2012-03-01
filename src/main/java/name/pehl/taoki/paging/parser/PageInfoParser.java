@@ -6,11 +6,13 @@ import name.pehl.taoki.paging.PageInfo;
  * Interface for parsing and creating an instance of {@link PageInfo} out of an
  * input.
  * 
+ * @param <T>
+ *            The input type
  * @author $Author$
  * @version $Date$ $Revision:
  *          85318 $
  */
-public interface PageInfoParser
+public interface PageInfoParser<T>
 {
     String OFFSET = "offset";
     String PAGE_SIZE = "pageSize";
@@ -31,5 +33,5 @@ public interface PageInfoParser
      * @throws PageInfoParseException
      *             if the input was not <code>null</code> but invalid.
      */
-    PageInfo parse(Object input) throws PageInfoParseException;
+    PageInfo parse(T input) throws PageInfoParseException;
 }

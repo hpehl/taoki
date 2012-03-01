@@ -1,6 +1,5 @@
 package name.pehl.taoki.paging.parser;
 
-
 /**
  * Contains common functionality for all {@link PageInfoParser} implementations.
  * 
@@ -8,7 +7,7 @@ package name.pehl.taoki.paging.parser;
  * @version $Date$ $Revision: 145
  *          $
  */
-public abstract class AbstractPageInfoParser implements PageInfoParser
+public abstract class AbstractPageInfoParser<T> implements PageInfoParser<T>
 {
     /**
      * Verifies that the specified {@code clazz}

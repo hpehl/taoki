@@ -3,6 +3,8 @@ package name.pehl.taoki.paging.parser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.ws.rs.core.HttpHeaders;
+
 import name.pehl.taoki.paging.PageInfo;
 
 /**
@@ -21,7 +23,7 @@ import name.pehl.taoki.paging.PageInfo;
  * @version $Date$ $Revision:
  *          85318 $
  */
-public class HeaderPageInfoParser extends AbstractPageInfoParser
+public class HeaderPageInfoParser extends AbstractPageInfoParser<HttpHeaders>
 {
     private static final String REGEXP = "^items=([0-9]+)-([0-9]+)";
 
@@ -34,13 +36,13 @@ public class HeaderPageInfoParser extends AbstractPageInfoParser
      * @see name.pehl.taoki.paging.parser.PageInfoParser#parse(java.lang.Object)
      */
     @Override
-    public PageInfo parse(Object input) throws PageInfoParseException
+    public PageInfo parse(HttpHeaders input) throws PageInfoParseException
     {
         if (input == null)
         {
             return null;
         }
-        verifyInput(input, String.class);
+        verifyInput(input, HttpHeaders.class);
 
         String header = (String) input;
         Pattern p = Pattern.compile(REGEXP);
