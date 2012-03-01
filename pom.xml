@@ -7,85 +7,72 @@
     <parent>
         <groupId>name.pehl</groupId>
         <artifactId>superpom</artifactId>
-        <version>11</version>
-    </parent>
+        <version>19</version>
+    </parent> 
 
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>name.pehl</groupId>
     <artifactId>taoki</artifactId>
-    <version>0.3.0</version>
+    <version>0.4-SNAPSHOT</version>
     <name>Taoki</name>
-    <description>Small layer on top of the GWT Restlet framework</description>
+    <description>Small library to use JAX-RS with Guice on App Engine</description>
     <url>http://code.google.com/p/taoki/</url>
-
-
     <scm>
-        <connection>scm:svn:http://taoki.googlecode.com/svn/trunk</connection>
-        <developerConnection>scm:svn:https://taoki.googlecode.com/svn/trunk</developerConnection>
-        <tag>HEAD</tag>
-        <url>http://taoki.googlecode.com/svn/trunk</url>
+        <connection>scm:svn:http://taoki.googlecode.com/svn/trunk/</connection>
+        <developerConnection>scm:svn:https://taoki.googlecode.com/svn/trunk/</developerConnection>
+        <url>http://taoki.googlecode.com/svn/trunk/</url>
     </scm>
     <distributionManagement>
-        <repository>
-            <id>taoki-repo</id>
-            <name>Taoki Repository</name>
-            <url>svn:https://taoki.googlecode.com/svn/repository</url>
-        </repository>
         <site>
-            <id>taoki-site</id>
-            <name>Taoki Site</name>
-            <url>svn:https://taoki.googlecode.com/svn/site</url>
+            <id>s3.site</id>
+            <url>s3://pehl.mvnsite/taoki/${project.version}</url>
         </site>
-    </distributionManagement>
-    <repositories>
-        <repository>
-            <id>pehl-parent</id>
-            <url>http://pehl-parent.googlecode.com/svn/repository</url>
-        </repository>
-    </repositories>
+    </distributionManagement> 
+
+
+    <properties>
+        <guice.version>3.0</guice.version>
+        <junit.version>4.10</junit.version>
+        <mockito.version>1.9.0</mockito.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties> 
 
 
     <dependencies>
         <dependency>
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
+            <version>${guice.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
         </dependency>
         <dependency>
             <groupId>aopalliance</groupId>
             <artifactId>aopalliance</artifactId>
+            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.restlet.gae</groupId>
-            <artifactId>org.restlet</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.restlet.gae</groupId>
-            <artifactId>org.restlet.ext.servlet</artifactId>
-            <version>${restlet.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.restlet.jse</groupId>
-            <artifactId>org.restlet</artifactId>
-            <version>${restlet.version}</version>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.restlet.jse</groupId>
-            <artifactId>org.restlet.ext.json</artifactId>
-            <version>${restlet.version}</version>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>${mockito.version}</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.restlet.jse</groupId>
-            <artifactId>org.restlet.lib.org.json</artifactId>
-            <version>2.0</version>
-            <scope>test</scope>
-        </dependency>
+        </dependency> 
     </dependencies>
 
 
@@ -98,10 +85,6 @@
                     <excludes>
                         <exclude>**/TestComponent.java</exclude>
                     </excludes>
-                    <classpathDependencyExcludes>
-                        <classpathDependencyExcludes>org.restlet.gae:org.restlet</classpathDependencyExcludes>
-                        <classpathDependencyExcludes>org.restlet.gae:org.restlet.ext.servlet</classpathDependencyExcludes>
-                    </classpathDependencyExcludes>
                 </configuration>
             </plugin>
         </plugins>
