@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 import javax.ws.rs.core.HttpHeaders;
 
 import name.pehl.taoki.paging.PageInfo;
+import name.pehl.taoki.paging.PageInfoParseException;
 
 /**
  * {@link PageInfoParser} expecting the paging info as string with the following

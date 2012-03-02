@@ -1,6 +1,7 @@
 package name.pehl.taoki.paging.parser;
 
 import name.pehl.taoki.paging.PageInfo;
+import name.pehl.taoki.paging.PageInfoParseException;
 
 /**
  * Interface for parsing and creating an instance of {@link PageInfo} out of an

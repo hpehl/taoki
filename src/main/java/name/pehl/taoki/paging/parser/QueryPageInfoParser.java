@@ -1,8 +1,7 @@
 package name.pehl.taoki.paging.parser;
 
 import name.pehl.taoki.paging.PageInfo;
-
-import org.restlet.data.Form;
+import name.pehl.taoki.paging.PageInfoParseException;
 
 /**
  * {@link PageInfoParser} expecting the page info as {@link Form} with the
@@ -21,6 +20,10 @@ import org.restlet.data.Form;
  */
 public class QueryPageInfoParser extends AbstractPageInfoParser
 {
+    String OFFSET = "offset";
+    String PAGE_SIZE = "pageSize";
+
+
     /**
      * @param input
      *            a {@link Form} containing the page info fields

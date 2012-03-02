@@ -3,7 +3,6 @@ package name.pehl.taoki.paging;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNull;
 import static org.mockito.Mockito.*;
-import name.pehl.taoki.paging.parser.PageInfoParseException;
 import name.pehl.taoki.paging.parser.PageInfoParser;
 
 import org.junit.Test;

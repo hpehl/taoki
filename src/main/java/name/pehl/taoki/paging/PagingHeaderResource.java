@@ -1,7 +1,6 @@
 package name.pehl.taoki.paging;
 
 import java.util.List;
-import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -50,7 +49,7 @@ public abstract class PagingHeaderResource extends AbstractPagingResource<HttpHe
 
 
     @Override
-    protected PageInfo getPageInfo(HttpHeaders input)
+    protected PageInfo getPageInfo(HttpHeaders input) throws PageInfoParseException
     {
         PageInfo result = null;
         if (input != null)
@@ -63,48 +62,26 @@ public abstract class PagingHeaderResource extends AbstractPagingResource<HttpHe
                 Matcher m = p.matcher(headerValue);
 
                 String offset = null;
-                int offsetValue = 0;
                 String lastIndex = null;
-                int lastIndexValue = 0;
                 if (m.matches() && m.groupCount() > 1)
                 {
                     offset = m.group(1);
                     lastIndex = m.group(2);
-                    try
-                    {
-                        offsetValue = Integer.parseInt(offset);
-                    }
-                    catch (NumberFormatException e)
-                    {
-                        logger.log(Level.SEVERE, String.format(
-                                "Paging info \"%s\" contains the invalid offset: \"%s\"", headerValue, offset));
-                    }
-                    try
-                    {
-                        lastIndexValue = Integer.parseInt(lastIndex);
-                    }
-                    catch (NumberFormatException e)
-                    {
-                        logger.log(Level.SEVERE, String.format(
-                                "Paging info \"%s\" contains the invalid last index: \"%s\"", headerValue, lastIndex));
-                    }
+
+                    int offsetValue = convertInt(offset, "Paging info \"%s\" contains the invalid offset: \"%s\"",
+                            headerValue, offset);
+                    int lastIndexValue = convertInt(lastIndex,
+                            "Paging info \"%s\" contains the invalid last index: \"%s\"", headerValue, lastIndex);
                     int pageSize = lastIndexValue - offsetValue + 1;
                     result = new PageInfo(offsetValue, pageSize);
                 }
                 else
                 {
-                    logger.log(Level.SEVERE, String.format(
-                            "Paging info has the wrong format. Expected: %s, given: \"%s\"", REGEXP, headerValue));
+                    String error = String.format("Paging info has the wrong format. Expected: %s, given: \"%s\"",
+                            REGEXP, headerValue);
+                    throw new PageInfoParseException(error);
                 }
             }
-            else
-            {
-                logger.log(Level.SEVERE, "No request header \"" + ITEM_RANGE_HEADER + "\" found");
-            }
-        }
-        else
-        {
-            logger.log(Level.SEVERE, "No input specified");
         }
         return result;
     }

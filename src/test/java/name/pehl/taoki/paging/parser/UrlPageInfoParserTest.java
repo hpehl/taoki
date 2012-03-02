@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import name.pehl.taoki.paging.PageInfo;
+import name.pehl.taoki.paging.PageInfoParseException;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -1,5 +1,7 @@
 package name.pehl.taoki.paging.parser;
 
+import name.pehl.taoki.paging.PageInfoParseException;
+
 /**
  * Contains common functionality for all {@link PageInfoParser} implementations.
  * 

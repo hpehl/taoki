@@ -2,6 +2,7 @@ package name.pehl.taoki.paging.parser;
 
 import static org.junit.Assert.*;
 import name.pehl.taoki.paging.PageInfo;
+import name.pehl.taoki.paging.PageInfoParseException;
 
 import org.junit.Test;
 

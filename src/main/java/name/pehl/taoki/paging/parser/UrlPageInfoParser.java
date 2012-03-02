@@ -3,6 +3,7 @@ package name.pehl.taoki.paging.parser;
 import java.util.Map;
 
 import name.pehl.taoki.paging.PageInfo;
+import name.pehl.taoki.paging.PageInfoParseException;
 
 /**
  * {@link PageInfoParser} expecting the paging info as {@link Map} with the

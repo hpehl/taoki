@@ -1,11 +1,5 @@
 package name.pehl.taoki.paging;
 
-import java.util.logging.Logger;
-
-import javax.inject.Inject;
-
-import name.pehl.taoki.paging.parser.PageInfoParseException;
-
 /**
  * Abstract paging resource. This class must return a {@link PageInfo} instance
  * for the specified input.
@@ -18,15 +12,11 @@ import name.pehl.taoki.paging.parser.PageInfoParseException;
  */
 public abstract class AbstractPagingResource<T>
 {
-    @Inject
-    Logger logger;
-
-
     /**
      * Responsible for returning a {@link PageInfo} instance for the specified
      * input.
      */
-    protected abstract PageInfo getPageInfo(T input);
+    protected abstract PageInfo getPageInfo(T input) throws PageInfoParseException;
 
 
     protected int convertInt(String input, String message, Object... params) throws PageInfoParseException
