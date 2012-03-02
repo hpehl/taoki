@@ -1,6 +1,8 @@
 package name.pehl.taoki.paging;
 
-import javax.ws.rs.core.MultivaluedMap;
+import name.pehl.taoki.paging.parser.QueryPageInfoParser;
+
+import org.restlet.Request;
 
 /**
  * A {@linkplain AbstractPagingResource paging resource} which uses query
@@ -29,31 +31,27 @@ import javax.ws.rs.core.MultivaluedMap;
  * @version $Date$ $Revision:
  *          61416 $
  */
-public abstract class PagingQueryResource extends AbstractPagingResource<MultivaluedMap<String, String>>
+public abstract class PagingQueryResource extends AbstractPagingResource
 {
     /**
-     * Query parameter for 'offset'
+     * Construct a new instance with a {@link QueryPageInfoParser}
      */
-    public static final String OFFSET = "offset";
+    public PagingQueryResource()
+    {
+        super(new QueryPageInfoParser());
+    }
+
 
     /**
-     * Query parameter for 'pageSize'
+     * Returns the {@linkplain #getQuery() query}.
+     * 
+     * @param request
+     * @return the {@linkplain #getQuery() query}.
+     * @see name.pehl.taoki.paging.AbstractPagingResource#getInput(org.restlet.Request)
      */
-    public static final String PAGE_SIZE = "pageSize";
-
-
     @Override
-    protected PageInfo getPageInfo(MultivaluedMap<String, String> input) throws PageInfoParseException
+    protected Object getInput(Request request)
     {
-        PageInfo result = null;
-        if (input != null)
-        {
-            String offset = input.getFirst(OFFSET);
-            String pageSize = input.getFirst(PAGE_SIZE);
-            int offsetValue = convertInt(offset, "Paging info contains the invalid offset: \"%s\"", offset);
-            int pageSizeValue = convertInt(pageSize, "Paging info contains the invalid page size: \"%s\"", pageSize);
-            result = new PageInfo(offsetValue, pageSizeValue);
-        }
-        return result;
+        return getQuery();
     }
 }

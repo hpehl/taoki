@@ -1,7 +1,8 @@
 package name.pehl.taoki.paging;
 
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.UriInfo;
+import name.pehl.taoki.paging.parser.UrlPageInfoParser;
+
+import org.restlet.Request;
 
 /**
  * A {@linkplain AbstractPagingResource paging resource} which uses the url of
@@ -15,8 +16,8 @@ import javax.ws.rs.core.UriInfo;
  * <li><code>sortField</code><br/>
  * The name of the field used for srting the result (optional)
  * <li><code>sortDir</code><br/>
- * The sort direction (optional). Must match (case insensitiv) one of the
- * constants in {@link SortDir}
+ * The sort direction (optional). Must match (case insensitiv) one of the constants in
+ * {@link SortDir}
  * </ul>
  * <p>
  * Examples:
@@ -32,33 +33,27 @@ import javax.ws.rs.core.UriInfo;
  * @version $Date: 2009-01-21 11:32:14 +0100 (Mi, 21 Jan 2009) $ $Revision:
  *          61416 $
  */
-public abstract class PagingUrlResource extends AbstractPagingResource<UriInfo>
+public abstract class PagingUrlResource extends AbstractPagingResource
 {
     /**
-     * Path parameter for 'offset'
+     * Construct a new instance with a {@link UrlPageInfoParser}
      */
-    public static final String OFFSET = "offset";
+    public PagingUrlResource()
+    {
+        super(new UrlPageInfoParser());
+    }
+
 
     /**
-     * Path parameter for 'pageSize'
+     * Returns the {@linkplain Request#getAttributes() url template parameter}.
+     * 
+     * @param request
+     * @return the {@linkplain Request#getAttributes() url template parameter}.
+     * @see name.pehl.taoki.paging.AbstractPagingResource#getInput(org.restlet.Request)
      */
-    public static final String PAGE_SIZE = "pageSize";
-
-
     @Override
-    protected PageInfo getPageInfo(UriInfo input) throws PageInfoParseException
+    protected Object getInput(Request request)
     {
-        PageInfo result = null;
-        if (input != null)
-        {
-            MultivaluedMap<String, String> parameters = input.getPathParameters();
-            String offset = parameters.getFirst(OFFSET);
-            String pageSize = parameters.getFirst(PAGE_SIZE);
-
-            int offsetValue = convertInt(offset, "Paging info contains the invalid offset: \"%s\"", offset);
-            int pageSizeValue = convertInt(pageSize, "Paging info contains the invalid page size: \"%s\"", pageSize);
-            return new PageInfo(offsetValue, pageSizeValue);
-        }
-        return result;
+        return request.getAttributes();
     }
 }

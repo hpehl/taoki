@@ -1,4 +1,4 @@
-package name.pehl.taoki.paging;
+package name.pehl.taoki.paging.parser;
 
 /**
  * @author $Author$

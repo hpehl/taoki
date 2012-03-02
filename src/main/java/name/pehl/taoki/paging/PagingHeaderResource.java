@@ -1,10 +1,11 @@
 package name.pehl.taoki.paging;
 
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import name.pehl.taoki.paging.parser.HeaderPageInfoParser;
 
-import javax.ws.rs.core.HttpHeaders;
+import org.restlet.Request;
+import org.restlet.data.Parameter;
+import org.restlet.engine.header.HeaderConstants;
+import org.restlet.util.Series;
 
 /**
  * A {@linkplain AbstractPagingResource paging resource} which uses the custom
@@ -39,50 +40,42 @@ import javax.ws.rs.core.HttpHeaders;
  * @version $Date$ $Revision:
  *          85318 $
  */
-public abstract class PagingHeaderResource extends AbstractPagingResource<HttpHeaders>
+public abstract class PagingHeaderResource extends AbstractPagingResource
 {
     /**
      * The name of the custom header carrying the item range data.
      */
     public static final String ITEM_RANGE_HEADER = "Item-Range";
-    private static final String REGEXP = "^items=([0-9]+)-([0-9]+)";
 
 
-    @Override
-    protected PageInfo getPageInfo(HttpHeaders input) throws PageInfoParseException
+    /**
+     * Construct a new instance with a {@link HeaderPageInfoParser}
+     */
+    public PagingHeaderResource()
     {
-        PageInfo result = null;
-        if (input != null)
+        super(new HeaderPageInfoParser());
+    }
+
+
+    /**
+     * Returns the value of the custom <code>Item-Range</code> header, or
+     * <code>null</code> if no such header was found.
+     * 
+     * @param request
+     * @return the value of the custom <code>Item-Range</code> header, or
+     *         <code>null</code> if no such header was found.
+     * @see name.pehl.taoki.paging.AbstractPagingResource#getInput(org.restlet.Request)
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    protected Object getInput(Request request)
+    {
+        String itemRangeHeader = null;
+        Series<Parameter> header = (Series<Parameter>) request.getAttributes().get(HeaderConstants.ATTRIBUTE_HEADERS);
+        if (header != null)
         {
-            List<String> requestHeader = input.getRequestHeader(ITEM_RANGE_HEADER);
-            if (requestHeader != null && !requestHeader.isEmpty())
-            {
-                String headerValue = requestHeader.get(0);
-                Pattern p = Pattern.compile(REGEXP);
-                Matcher m = p.matcher(headerValue);
-
-                String offset = null;
-                String lastIndex = null;
-                if (m.matches() && m.groupCount() > 1)
-                {
-                    offset = m.group(1);
-                    lastIndex = m.group(2);
-
-                    int offsetValue = convertInt(offset, "Paging info \"%s\" contains the invalid offset: \"%s\"",
-                            headerValue, offset);
-                    int lastIndexValue = convertInt(lastIndex,
-                            "Paging info \"%s\" contains the invalid last index: \"%s\"", headerValue, lastIndex);
-                    int pageSize = lastIndexValue - offsetValue + 1;
-                    result = new PageInfo(offsetValue, pageSize);
-                }
-                else
-                {
-                    String error = String.format("Paging info has the wrong format. Expected: %s, given: \"%s\"",
-                            REGEXP, headerValue);
-                    throw new PageInfoParseException(error);
-                }
-            }
+            itemRangeHeader = header.getFirstValue(ITEM_RANGE_HEADER);
         }
-        return result;
+        return itemRangeHeader;
     }
 }
