@@ -1,20 +1,21 @@
 package name.pehl.taoki.paging;
 
-import java.io.IOException;
-
 import name.pehl.taoki.TestComponent;
-
 import org.json.JSONException;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.restlet.resource.ClientResource;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
+
+import java.io.IOException;
 
 /**
  * @author $Author: harald.pehl $
  * @version $Date: 2010-09-09 17:57:49 +0200 (Do, 09. Sep 2010) $ $Revision: 135
  *          $
  */
+@Ignore
 public class NumbersQueryResourceIntegrationTest extends NumbersIntegrationTest
 {
     @Override

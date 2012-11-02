@@ -48,7 +48,7 @@ public abstract class GuiceRouter extends Router
 
 
     @Override
-    public Finder createFinder(Class<? extends ServerResource> targetClass)
+    public Finder createFinder(Class<?> targetClass)
     {
         return new GuiceFinder(injector, getContext(), targetClass);
     }

@@ -1,22 +1,23 @@
 package name.pehl.taoki.paging;
 
-import java.io.IOException;
-
 import name.pehl.taoki.TestComponent;
-
 import org.json.JSONException;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.restlet.data.Form;
-import org.restlet.engine.header.HeaderConstants;
+import org.restlet.engine.http.header.HeaderConstants;
 import org.restlet.resource.ClientResource;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
+
+import java.io.IOException;
 
 /**
  * @author $Author$
  * @version $Date$ $Revision: 135
  *          $
  */
+@Ignore
 public class NumbersHeaderResourceIntegrationTest extends NumbersIntegrationTest
 {
     @Override

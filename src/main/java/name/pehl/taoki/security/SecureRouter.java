@@ -23,7 +23,7 @@ public abstract class SecureRouter extends GuiceRouter
 
 
     @Override
-    public Finder createFinder(Class<? extends ServerResource> targetClass)
+    public Finder createFinder(Class<?> targetClass)
     {
         return new SecureFinder(injector, getContext(), targetClass);
     }

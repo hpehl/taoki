@@ -1,12 +1,11 @@
 package name.pehl.taoki.security;
 
+import com.google.inject.Inject;
 import org.restlet.Request;
 import org.restlet.Response;
 import org.restlet.data.Parameter;
-import org.restlet.engine.header.HeaderConstants;
+import org.restlet.engine.http.header.HeaderConstants;
 import org.restlet.util.Series;
-
-import com.google.inject.Inject;
 
 /**
  * Reads the security token from a request header.

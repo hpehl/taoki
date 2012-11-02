@@ -1,5 +1,6 @@
 package name.pehl.taoki.security;
 
+import org.junit.Ignore;
 import org.restlet.resource.ServerResource;
 
 import com.google.inject.AbstractModule;
@@ -9,6 +10,7 @@ import com.google.inject.AbstractModule;
  * @version $Date$ $Revision: 149
  *          $
  */
+@Ignore
 public class HitchhikingResourceGetAnnotationIntegrationTest extends HitchhikingIntegrationTest
 {
     @Override

@@ -23,7 +23,7 @@ public class GuiceFinder extends Finder
     protected final Injector injector;
 
 
-    public GuiceFinder(Injector injector, Context context, Class<? extends ServerResource> targetClass)
+    public GuiceFinder(Injector injector, Context context, Class<?> targetClass)
     {
         super(context, targetClass);
         this.injector = injector;

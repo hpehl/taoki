@@ -1,17 +1,18 @@
 package name.pehl.taoki.security;
 
-import static com.google.inject.matcher.Matchers.annotatedWith;
-import static com.google.inject.matcher.Matchers.subclassesOf;
-
+import com.google.inject.AbstractModule;
+import org.junit.Ignore;
 import org.restlet.resource.ServerResource;
 
-import com.google.inject.AbstractModule;
+import static com.google.inject.matcher.Matchers.annotatedWith;
+import static com.google.inject.matcher.Matchers.subclassesOf;
 
 /**
  * @author $Author$
  * @version $Date$ $Revision: 149
  *          $
  */
+@Ignore
 public class HitchhikingResourceSecuredAnnotationIntegrationTest extends HitchhikingIntegrationTest
 {
     @Override

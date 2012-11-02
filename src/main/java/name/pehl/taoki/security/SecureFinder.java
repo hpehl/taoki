@@ -1,13 +1,10 @@
 package name.pehl.taoki.security;
 
+import com.google.inject.Injector;
 import name.pehl.taoki.GuiceFinder;
-
 import org.restlet.Context;
 import org.restlet.Request;
 import org.restlet.Response;
-import org.restlet.resource.ServerResource;
-
-import com.google.inject.Injector;
 
 /**
  * A {@link GuiceFinder} which invokes
@@ -19,7 +16,7 @@ import com.google.inject.Injector;
  */
 public class SecureFinder extends GuiceFinder
 {
-    public SecureFinder(Injector injector, Context context, Class<? extends ServerResource> targetClass)
+    public SecureFinder(Injector injector, Context context, Class<?> targetClass)
     {
         super(injector, context, targetClass);
     }
